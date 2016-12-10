@@ -93,15 +93,15 @@ wget http://openconnecto.me/mrdata/share/demo_data/less_small_atlases.zip
 unzip less_small_atlases.zip # puts atlases we expect to have in the correct spot
 
 # proceed to tutorial below about setting up the server
+
 ```
 <a name="webserver"></a>
 ## Server Tutorial
 
-Now that we have the pipeline working, we can try to get some scans uploaded and analyzed for visualization and downloading through the web service. From inside the docker container (or, if you installed locally, from the website folder):
+Now that we have a working docker container, we can try to get some scans uploaded and analyzed for visualization and downloading through the web service. From inside the docker container (or, if you installed locally, from the website folder):
 ```
-$ cd /FNGS_website/fngs # (if installed locally, cd FNGS_website/fngs from wherver the FNGS_website repo is cloned)
-$ python manage.py runserver 0.0.0.0:<portnum> # puts the server up on 0.0.0.0:<portnum> for whatever port you choose
-Performing system checks...
+# from the host system with the docker container properly working
+$ 
 
 System check identified some issues:
 
@@ -169,6 +169,23 @@ If you accidentally reload the analysis page or something gets screwed up, I've 
 ```
 cd /FNGS_website/fngs # if on the docker container, it will be right here
 python manage.py flush # Removes all data from the database, but does not touch the existing tables
+rm -rf /FNGS_server/input_data # deletes the existing data... goodbye! 
+rm -rf /FNGS_server/output_data
+cd /FNGS_website/fngs
+python manage.py 0.0.0.0:8000 # should be back up and good to go again
+```
+
+If you want to just freshly build the database with all migrations, follow this:
+```
+cd /FNGS_website/fngs # if on the docker container, it will be right here
+python manage.py flush # Removes all data from the database, but does not touch the existing tables
+# deletes old tables
+rm -rf /FNGS_website/fngs/analyze/migrations
+cd /FNGS_website/fngs
+rm db.sqlite3
+# make the migrations and apply to new database
+python manage.py makemigrations analyze
+python manage.py migrate
 rm -rf /FNGS_server/input_data # deletes the existing data... goodbye! 
 rm -rf /FNGS_server/output_data
 cd /FNGS_website/fngs
