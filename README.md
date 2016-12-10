@@ -4,10 +4,10 @@
 
 ## Getting the Pipeline Running
 
-[Using the Pipeline Only](#pipeline)
-[Building the Docker Container](#building)
-[Pulling the Existing Docker Container](#pulling)
-[Running the Web Service](#webserver)
+[Using the Pipeline Only](#pipeline)  
+[Building the Docker Container](#building)  
+[Pulling the Existing Docker Container](#pulling)  
+[Running the Web Service](#webserver)  
 
 <a name="pipeline"></a>
 ### Pipeline Use
