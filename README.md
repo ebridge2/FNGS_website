@@ -85,14 +85,15 @@ cd ndmg/scripts
 ./ndmg_demo-func.sh
 
 cd ../../../
-git clone git@github.com:ebridge2/FNGS_website.git
+git clone git@github.com:ebridge2/FNGS_website.git /desired/path
 
 mkdir /FNGS_server # the server expects this directory
 cd /FNGS_server
 wget http://openconnecto.me/mrdata/share/demo_data/less_small_atlases.zip
 unzip less_small_atlases.zip # puts atlases we expect to have in the correct spot
 
-# proceed to tutorial below about setting up the server
+cd /desired/path/FNGS_website/fngs
+python manage.py runserver (desired_ip):<port_num>
 
 ```
 <a name="webserver"></a>
@@ -101,7 +102,8 @@ unzip less_small_atlases.zip # puts atlases we expect to have in the correct spo
 Now that we have a working docker container, we can try to get some scans uploaded and analyzed for visualization and downloading through the web service. From inside the docker container (or, if you installed locally, from the website folder):
 ```
 # from the host system with the docker container properly working
-$ 
+# navigate to the IP of your host, and type host_IP:port 
+$ docker run -ti -p <portnum>:8000 <your-handle>/fngs
 
 System check identified some issues:
 
@@ -111,9 +113,12 @@ WARNINGS:
 System check identified 1 issue (0 silenced).
 December 07, 2016 - 20:33:52
 Django version 1.10.4, using settings 'fngs.settings'
-Starting development server at http://localhost:8000/ # this line tells you where to go to open the service, or just click
+Starting development server at http://localhost:8000/ # NOTE: this is NOT the actual web address. This is the host local web address
 Quit the server with CONTROL-C.
 ```
+
+Note: if you are on cortex, your address will be cortex.jhu.edu:<port-num>.
+
 Following the link given by the service will take you to the home page:
 ![FNGS Homepage](https://cloud.githubusercontent.com/assets/8883547/20985816/12fabc48-bc94-11e6-90d8-d74aa0e1bf70.png)
 Click the link above to take you to the "Analyze" Tab.
@@ -189,5 +194,5 @@ python manage.py migrate
 rm -rf /FNGS_server/input_data # deletes the existing data... goodbye! 
 rm -rf /FNGS_server/output_data
 cd /FNGS_website/fngs
-python manage.py 0.0.0.0:8000 # should be back up and good to go again
+python manage.py runserver 0.0.0.0:8000 # should be back up and good to go again
 ```
