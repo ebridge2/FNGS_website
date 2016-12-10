@@ -59,10 +59,10 @@ December 07, 2016 - 20:33:52
 Django version 1.10.4, using settings 'fngs.settings'
 Starting development server at http://localhost:8000/ # NOTE: this is NOT the actual web address. This is the host local web address
 Quit the server with CONTROL-C.
-```
 
-Note: if you are on cortex, your address will be cortex.jhu.edu:<port-num>.
+# Note: if you are on cortex, your address will be cortex.jhu.edu:<port-num>.
 # proceed to tutorial below about setting up the server
+```
 
 <a name="pulling"></a>
 ### Pulling Docker Container from Remote
@@ -97,6 +97,7 @@ Starting development server at http://localhost:8000/ # NOTE: this is NOT the ac
 Quit the server with CONTROL-C.
 # navigate to the IP of your host, and type host_IP:port 
 
+# Note: if you are on cortex, your address will be cortex.jhu.edu:<port-num>.
 # proceed to tutorial below about setting up the server
 ```
 <a name="local"></a>
