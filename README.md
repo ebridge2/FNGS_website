@@ -4,9 +4,13 @@
 
 ## Getting the Pipeline Running
 
-[Using the Pipeline](#pipeline)
+[Using the Pipeline Only](#pipeline)
+[Building the Docker Container](#building)
+[Pulling the Existing Docker Container](#pulling)
+[Running the Web Service](#webserver)
 
-### ## Pipeline Use<a name="pipeline"></a>
+<a name="pipeline"></a>
+### Pipeline Use
 ```
 git clone https://github.com/ebridge2/FNGS_website.git
 cd FNGS_website
@@ -24,6 +28,7 @@ cd /ndmg/ndmg/scripts/
 ./ndmg_demo-func.sh
 ```
 
+<a name="building"></a>
 ### Building Docker Container for Web Use
 
 Note that this guide is very similar to the preceeding guide, except now we need to forward ports when we use the docker container.
@@ -46,16 +51,16 @@ cd /ndmg/ndmg/scripts/
 # proceed to tutorial below about setting up the server
 ```
 
+<a name="pulling"></a>
 ### Pulling Docker Container from Remote
 ```
-docker pull ericw95/fngs:0.0.3
+docker pull ericw95/fngs:0.0.4
 
 # -v argument allows your container to use data that is only available locally. Ie, in this case, the data in
 # /local/path/to/your/data/ would be visible inside the docker container at /data
 docker run -ti -v /local/path/to/your/data/:/data -p <portnum>:<portnum> --entrypoint /bin/bash ericw95/fngs:0.0.3
 # otherwise, you can just skip the -v flag entirely if you plan to use the demo data
 docker run -ti -p <portnum>:<portnum> --entrypoint /bin/bash <your-handle>/fngs
-
 
 # takes you into the docker container
 
@@ -66,7 +71,7 @@ cd /ndmg/ndmg/scripts/
 
 # proceed to tutorial below about setting up the server
 ```
-
+<a name="local"></a>
 ### Local Setup Tutorial
 
 Note that in order for this to work, you need to have FSL version 0.5.9 configured on your local machine (non-intuitive for non Red Hat distributions). This path is not recommended unless you have experience installing FSL on non-RH Linux distributions. 
@@ -89,7 +94,7 @@ unzip less_small_atlases.zip # puts atlases we expect to have in the correct spo
 
 # proceed to tutorial below about setting up the server
 ```
-
+<a name="webserver"></a>
 ## Server Tutorial
 
 Now that we have the pipeline working, we can try to get some scans uploaded and analyzed for visualization and downloading through the web service. From inside the docker container (or, if you installed locally, from the website folder):
