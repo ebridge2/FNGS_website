@@ -61,6 +61,7 @@ Starting development server at http://localhost:8000/ # NOTE: this is NOT the ac
 Quit the server with CONTROL-C.
 
 # Note: if you are on cortex, your address will be cortex.jhu.edu:<port-num>.
+# if you are only deploying locally, your address will be 0.0.0.0:<port-num>.
 # proceed to tutorial below about setting up the server
 ```
 
@@ -98,6 +99,7 @@ Quit the server with CONTROL-C.
 # navigate to the IP of your host, and type host_IP:port 
 
 # Note: if you are on cortex, your address will be cortex.jhu.edu:<port-num>.
+# if you are only deploying locally, your address will be 0.0.0.0:<port-num>.
 # proceed to tutorial below about setting up the server
 ```
 <a name="local"></a>
