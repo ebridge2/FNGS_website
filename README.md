@@ -12,20 +12,20 @@
 <a name="pipeline"></a>
 ### Pipeline Use
 ```
-git clone https://github.com/ebridge2/FNGS_website.git
-cd FNGS_website
-docker build --no-cache -t <your-handle>/fngs .
+$ git clone https://github.com/ebridge2/FNGS_website.git
+$ cd FNGS_website
+$ docker build --no-cache -t <your-handle>/fngs .
 
 # -v argument allows your container to use data that is only available locally. Ie, in this case, the data in
 # /local/path/to/your/data/ would be visible inside the docker container at /data
-docker run -ti -v /local/path/to/your/data/:/data --entrypoint /bin/bash <your-handle>/fngs
+$ docker run -ti -v /local/path/to/your/data/:/data --entrypoint /bin/bash <your-handle>/fngs
 # otherwise, you can just skip the -v flag entirely if you plan to use the demo data
-docker run -ti --entrypoint /bin/bash <your-handle>/fngs
+$ docker run -ti --entrypoint /bin/bash <your-handle>/fngs
 
 # takes you into the docker container
-cd /ndmg/ndmg/scripts/
+$ cd /ndmg/ndmg/scripts/
 # runs the demo
-./ndmg_demo-func.sh
+$ ./ndmg_demo-func.sh
 ```
 
 <a name="building"></a>
@@ -105,23 +105,23 @@ Quit the server with CONTROL-C.
 Note that in order for this to work, you need to have FSL version 0.5.9 configured on your local machine (non-intuitive for non Red Hat distributions). This path is not recommended unless you have experience installing FSL on non-RH Linux distributions. 
 
 ```
-git clone https://github.com/neurodata/ndmg.git
-cd ndmg/
-python setup.py install
-cd ndmg/scripts
+$ git clone https://github.com/neurodata/ndmg.git
+$ cd ndmg/
+$ python setup.py install
+$ cd ndmg/scripts
 # confirm that the pipeline runs without error
-./ndmg_demo-func.sh
+$ ./ndmg_demo-func.sh
 
-cd ../../../
-git clone git@github.com:ebridge2/FNGS_website.git /desired/path
+$ cd ../../../
+$ git clone git@github.com:ebridge2/FNGS_website.git /desired/path
 
-mkdir /FNGS_server # the server expects this directory
-cd /FNGS_server
-wget http://openconnecto.me/mrdata/share/demo_data/less_small_atlases.zip
-unzip less_small_atlases.zip # puts atlases we expect to have in the correct spot
+$ mkdir /FNGS_server # the server expects this directory
+$ cd /FNGS_server
+$ wget http://openconnecto.me/mrdata/share/demo_data/less_small_atlases.zip
+$ unzip less_small_atlases.zip # puts atlases we expect to have in the correct spot
 
-cd /desired/path/FNGS_website/fngs
-python manage.py runserver (desired_ip):<port_num>
+$ cd /desired/path/FNGS_website/fngs
+$ python manage.py runserver (desired_ip):<port_num>
 
 ```
 <a name="webserver"></a>
@@ -144,11 +144,11 @@ Before we add any information here, let's return to a new terminal window and do
 
 ```
 cd /tmp/
-wget http://openconnecto.me/mrdata/share/demo_data/full_demo_func.zip # this might take a few seconds to download
-unzip full_demo_func.zip
+$ wget http://openconnecto.me/mrdata/share/demo_data/full_demo_func.zip # this might take a few seconds to download
+$ unzip full_demo_func.zip
 # if you would prefer to use smaller data, make sure to use the appropriate functional scan and anatomical scan
-wget http://openconnecto.me/mrdata/share/demo_data/small_demo_func.zip
-unzip small_demo_func.zip
+$ wget http://openconnecto.me/mrdata/share/demo_data/small_demo_func.zip
+$ unzip small_demo_func.zip
 ```
 This gives us 2 subjects, and 2 trials per subject, of demo data to play around with. Next, let's go back to the website, and fill out the required information for the subject. I chose subject 0025864, scan 1, for this demo. As you can see, we will need to include the functional scan and the structural scan, which can be found at the path "/tmp/full_func/BNU1/sub-0025864/session-1/func/sub-0025864_session-1_bold.nii.gz" and "/tmp/full_func/BNU1/sub-0025864/session-1/anat/sub-0025864_session-1_T1w.nii.gz" respectively  (assuming you downloaded the .zip file to the /tmp/ directory):
 
@@ -180,27 +180,27 @@ And voila! This tutorial is now complete. Feedback can be left in the form of gi
 
 If you accidentally reload the analysis page or something gets screwed up, I've had the best luck instead of trying to figure out how messed up it is and going from there, just resetting the service entirely. Go to the directory where you have the website installed:
 ```
-cd /FNGS_website/fngs # if on the docker container, it will be right here
-python manage.py flush # Removes all data from the database, but does not touch the existing tables
-rm -rf /FNGS_server/input_data # deletes the existing data... goodbye! 
-rm -rf /FNGS_server/output_data
-cd /FNGS_website/fngs
-python manage.py 0.0.0.0:8000 # should be back up and good to go again
+$ cd /FNGS_website/fngs # if on the docker container, it will be right here
+$ python manage.py flush # Removes all data from the database, but does not touch the existing tables
+$ rm -rf /FNGS_server/input_data # deletes the existing data... goodbye! 
+$ rm -rf /FNGS_server/output_data
+$ cd /FNGS_website/fngs
+$ python manage.py 0.0.0.0:8000 # should be back up and good to go again
 ```
 
 If you want to just freshly build the database with all migrations, follow this:
 ```
-cd /FNGS_website/fngs # if on the docker container, it will be right here
-python manage.py flush # Removes all data from the database, but does not touch the existing tables
+$ cd /FNGS_website/fngs # if on the docker container, it will be right here
+$ python manage.py flush # Removes all data from the database, but does not touch the existing tables
 # deletes old tables
-rm -rf /FNGS_website/fngs/analyze/migrations
-cd /FNGS_website/fngs
-rm db.sqlite3
+$ rm -rf /FNGS_website/fngs/analyze/migrations
+$ cd /FNGS_website/fngs
+$ rm db.sqlite3
 # make the migrations and apply to new database
-python manage.py makemigrations analyze
-python manage.py migrate
-rm -rf /FNGS_server/input_data # deletes the existing data... goodbye! 
-rm -rf /FNGS_server/output_data
-cd /FNGS_website/fngs
-python manage.py runserver 0.0.0.0:8000 # should be back up and good to go again
+$ python manage.py makemigrations analyze
+$ python manage.py migrate
+$ rm -rf /FNGS_server/input_data # deletes the existing data... goodbye! 
+$ rm -rf /FNGS_server/output_data
+$ cd /FNGS_website/fngs
+$ python manage.py runserver 0.0.0.0:8000 # should be back up and good to go again
 ```
