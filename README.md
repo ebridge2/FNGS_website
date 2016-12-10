@@ -33,41 +33,69 @@ cd /ndmg/ndmg/scripts/
 
 Note that this guide is very similar to the preceeding guide, except now we need to forward ports when we use the docker container.
 ```
-git clone https://github.com/ebridge2/FNGS_website.git
-cd FNGS_website
-docker build --no-cache -t <your-handle>/fngs .
+$ git clone https://github.com/ebridge2/FNGS_website.git
+$ cd FNGS_website
+$ docker build --no-cache -t <your-handle>/fngs .
 
 # -v argument allows your container to use data that is only available locally. Ie, in this case, the data in
 # /local/path/to/your/data/ would be visible inside the docker container at /data
-docker run -ti -v /local/path/to/your/data/:/data -p <portnum>:<portnum>  --entrypoint /bin/bash <your-handle>/fngs
+$ docker run -ti -v /local/path/to/your/data/:/data -p <portnum>:<portnum>  --entrypoint /bin/bash <your-handle>/fngs
 # takes you into the docker container
 # otherwise, you can just skip the -v flag entirely if you plan to use the demo data
-docker run -ti -p <portnum>:<portnum> --entrypoint /bin/bash <your-handle>/fngs
+$ docker run -ti -p <portnum>:<portnum> --entrypoint /bin/bash <your-handle>/fngs
 
-cd /ndmg/ndmg/scripts/
+$ cd /ndmg/ndmg/scripts/
 # runs the demo to make sure things work
-./ndmg_demo-func.sh
+$ ./ndmg_demo-func.sh
+$ docker run -ti -p <portnum>:8000 <your-handle>/fngs
 
-# proceed to tutorial below about setting up the server
+System check identified some issues:
+
+WARNINGS:
+?: (urls.W001) Your URL pattern '^$' uses include with a regex ending with a '$'. Remove the dollar from the regex to avoid problems including URLs.
+
+System check identified 1 issue (0 silenced).
+December 07, 2016 - 20:33:52
+Django version 1.10.4, using settings 'fngs.settings'
+Starting development server at http://localhost:8000/ # NOTE: this is NOT the actual web address. This is the host local web address
+Quit the server with CONTROL-C.
 ```
+
+Note: if you are on cortex, your address will be cortex.jhu.edu:<port-num>.
+# proceed to tutorial below about setting up the server
 
 <a name="pulling"></a>
 ### Pulling Docker Container from Remote
 ```
-docker pull ericw95/fngs:0.0.4
+$ docker pull ericw95/fngs:0.0.4
 
 # -v argument allows your container to use data that is only available locally. Ie, in this case, the data in
 # /local/path/to/your/data/ would be visible inside the docker container at /data
-docker run -ti -v /local/path/to/your/data/:/data -p <portnum>:<portnum> --entrypoint /bin/bash ericw95/fngs:0.0.3
+$ docker run -ti -v /local/path/to/your/data/:/data --entrypoint /bin/bash ericw95/fngs:0.0.4
 # otherwise, you can just skip the -v flag entirely if you plan to use the demo data
-docker run -ti -p <portnum>:<portnum> --entrypoint /bin/bash <your-handle>/fngs
+$ docker run -ti --entrypoint /bin/bash ericw95/fngs:0.0.4
 
 # takes you into the docker container
 
 
-cd /ndmg/ndmg/scripts/
-./ndmg_demo-func.sh
+$ cd /ndmg/ndmg/scripts/
+$ ./ndmg_demo-func.sh
 # runs the demo
+
+# from the host system with the docker container properly working
+$ docker run -ti -p <portnum>:8000 ericw95/fngs:0.0.4
+
+System check identified some issues:
+
+WARNINGS:
+?: (urls.W001) Your URL pattern '^$' uses include with a regex ending with a '$'. Remove the dollar from the regex to avoid problems including URLs.
+
+System check identified 1 issue (0 silenced).
+December 07, 2016 - 20:33:52
+Django version 1.10.4, using settings 'fngs.settings'
+Starting development server at http://localhost:8000/ # NOTE: this is NOT the actual web address. This is the host local web address
+Quit the server with CONTROL-C.
+# navigate to the IP of your host, and type host_IP:port 
 
 # proceed to tutorial below about setting up the server
 ```
@@ -97,27 +125,7 @@ python manage.py runserver (desired_ip):<port_num>
 
 ```
 <a name="webserver"></a>
-## Server Tutorial
-
-Now that we have a working docker container, we can try to get some scans uploaded and analyzed for visualization and downloading through the web service. From inside the docker container (or, if you installed locally, from the website folder):
-```
-# from the host system with the docker container properly working
-# navigate to the IP of your host, and type host_IP:port 
-$ docker run -ti -p <portnum>:8000 <your-handle>/fngs
-
-System check identified some issues:
-
-WARNINGS:
-?: (urls.W001) Your URL pattern '^$' uses include with a regex ending with a '$'. Remove the dollar from the regex to avoid problems including URLs.
-
-System check identified 1 issue (0 silenced).
-December 07, 2016 - 20:33:52
-Django version 1.10.4, using settings 'fngs.settings'
-Starting development server at http://localhost:8000/ # NOTE: this is NOT the actual web address. This is the host local web address
-Quit the server with CONTROL-C.
-```
-
-Note: if you are on cortex, your address will be cortex.jhu.edu:<port-num>.
+## Website Tutorial
 
 Following the link given by the service will take you to the home page:
 ![FNGS Homepage](https://cloud.githubusercontent.com/assets/8883547/20985816/12fabc48-bc94-11e6-90d8-d74aa0e1bf70.png)
