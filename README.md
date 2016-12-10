@@ -4,7 +4,9 @@
 
 ## Getting the Pipeline Running
 
-### Building Docker Container for Pipeline use Only
+[Using the Pipeline](#pipeline)
+
+### ## Pipeline Use<a name="pipeline"></a>
 ```
 git clone https://github.com/ebridge2/FNGS_website.git
 cd FNGS_website
