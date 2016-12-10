@@ -25,7 +25,7 @@ SECRET_KEY = '82w=+1q7#usjksm6mfx_p)q0eyb*g-8q&r&=356jv#dt7h@%ae'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '128.220.11.5', 'localhost']
+ALLOWED_HOSTS = ['cortex.jhu.edu', '0.0.0.0', '128.220.11.5', 'localhost']
 
 
 # Application definition
