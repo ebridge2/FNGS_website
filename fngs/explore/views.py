@@ -86,7 +86,7 @@ def sub_nuisance_qc(request, dataset_id, sub_id):
 	context = {
 			   'dataset':dataset,
 			   'subject':subject,
-			   'var': mgu().execute_cmd("find " + subject.output_url + " -wholename \"*nuis*" + subject.get_id() + "*var*\"")[0].rstrip('\n'),
+			   'var': mgu().execute_cmd("find " + subject.output_url + " -wholename \"*nuis*" + subject.get_id() + "*scree*\"")[0].rstrip('\n'),
 			   'er2ma': mgu().execute_cmd("find " + subject.output_url + " -wholename \"*eroded_wm*" + subject.get_id() + "*wm_overlap*\"")[0].rstrip('\n'),
 			   'ma2br': mgu().execute_cmd("find " + subject.output_url + " -wholename \"*eroded_wm*" + subject.get_id() + "*aligned_overlap*\"")[0].rstrip('\n'),
 	}
