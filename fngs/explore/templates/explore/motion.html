@@ -8,15 +8,15 @@
 		    <h1>Motion Correction</h1>
 		    <h2>Motion Parameters</h2>
 		    <p>First, we look at the motion parameters produced by mcflirt. We have both translational (x, y, and z) parameters, as well as rotational (x, y, and z) to cosider. First, we look at the rotational and translational motion parameters. Second, we consider overall motion, both absolute and relative. Absolute motion is defined as the total euclidian deviation from the zeroth timestep, whereas relative defines the distance from each timestep to its previous. Here, we want to be verifying that we do not have any sudden motions (indicated by significant spikes) as these could lead to signal dropout:</p>
-		    <img src="{{ MEDIA_URL }}{{ trans }}" alt="Translational MPs" height="600" width="700">
+		    <iframe src="{{ MEDIA_URL }}{{ trans }}" alt="Translational MPs" height="600" width="700"></iframe>
 		    <br>
-		    <img src="{{ rot }}" alt="Rotational MPs" height="600" width="700">
+		    <iframe src="{{ rot }}" alt="Rotational MPs" height="600" width="700"></iframe>
 		    <br>
-		    <img src="{{ disp }}" alt="Displacement MPs" height="600" width="700">
+		    <iframe src="{{ disp }}" alt="Displacement MPs" height="600" width="700"></iframe>
 		    <h2>Comparison Before and After Motion Correction</h2>
 		    <p>We align to the zeroth slice, so what we want to look for with our preprocessing here is to compare the quality of alignment before and after motion correction to the zeroth slice of each slice in the brain. We measure similarity with the mean squared error, where a smaller error indicates that our images have better alignment of higher activation regions, which typically would be associated with high white matter alignment (for all alignment comparisons hereafter, the MSE is taken between images normalized by their maximum values, such that all intensities are normalized between 0 and 1). Below, we provide two ways to compare the alignment quality before and after motion correction; in the jitter plot, we show a single point per axial slice per time point, in the kernel density estimate, we see the distribution of mean squared errors (this distribution is over all of the points of our jitter plot). As we can see, the MSE improves slightly after motion correction, which is about what we might expect.</p>
-		    <img src="{{ mcjitter }}" alt="MC jitter" height="600" width="700">
-		    <img src="{{ mckde }}" alt="MC KDE" height="600" width="700">
+		    <iframe src="{{ mcjitter }}" alt="MC jitter" height="600" width="700"></iframe>
+		    <iframe src="{{ mckde }}" alt="MC KDE" height="600" width="700"></iframe>
 	    </div>
 	</div>
 </div>
