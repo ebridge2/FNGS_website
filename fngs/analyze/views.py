@@ -94,9 +94,9 @@ def analysis(dataset, sub_id, output_dir):
 	subject = get_object_or_404(Subject, dataset=dataset, sub_id=sub_id)
 	subject.output_url = output_dir
 	fngs_pipeline(subject.func_scan.url, subject.struct_scan.url, subject.an,
-			      settings.AT_FOLDER + '/atlas/MNI152_T1_2mm.nii.gz', settings.AT_FOLDER + '/atlas/MNI152_T1_2mm_brain.nii.gz',
-			      settings.AT_FOLDER + '/mask/MNI152_T1_2mm_brain_mask.nii.gz', settings.AT_FOLDER + '/mask/HarvOx_lv_thr25_2mm.nii.gz', 
-			      [settings.AT_FOLDER + '/label/desikan_2mm.nii.gz'], output_dir, stc=subject.slice_timing, fmt='graphml')
+			      settings.AT_FOLDER + '/atlas/MNI152_T1-2mm.nii.gz', settings.AT_FOLDER + '/atlas/MNI152_T1-2mm_brain.nii.gz',
+			      settings.AT_FOLDER + '/mask/MNI152_T1-2mm_brain_mask.nii.gz', settings.AT_FOLDER + '/mask/HarvOx_lv_thr25-2mm.nii.gz', 
+			      [settings.AT_FOLDER + '/label/desikan-2mm.nii.gz'], output_dir, stc=subject.slice_timing, fmt='graphml')
 	wd = os.getcwd()
 	# go to where the subject is
 	os.chdir(dataset.output_url)
