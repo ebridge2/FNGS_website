@@ -14,6 +14,21 @@ def get_func_file_path(instance, filename):
 def get_anat_file_path(instance, filename):
     return os.path.join("/".join([str(instance.dataset), str(instance.sub_id), str(instance.sess_id), "anat", filename]))
 
+def get_dti_file_path(instance, filename):
+    return os.path.join("/".join([str(instance.dataset), str(instance.sub_id), str(instance.sess_id), "dti", filename]))
+
+def get_mprage_file_path(instance, filename):
+    return os.path.join("/".join([str(instance.dataset), str(instance.sub_id), str(instance.sess_id), "mprage", filename]))
+
+def get_bvals_file_path(instance, filename):
+    return os.path.join("/".join([str(instance.dataset), str(instance.sub_id), str(instance.sess_id), "bvals", filename]))
+
+def get_bvecs_file_path(instance, filename):
+    return os.path.join("/".join([str(instance.dataset), str(instance.sub_id), str(instance.sess_id), "bvecs", filename]))
+
+def get_labels_file_path(instance, filename):
+    return os.path.join("/".join([str(instance.dataset), str(instance.sub_id), str(instance.sess_id), "labels", filename]))
+
 class Dataset(models.Model):
 	dataset_id = models.CharField(max_length=30)
 	collection_site = models.CharField(max_length=40)
@@ -54,6 +69,11 @@ class Subject(models.Model):
 		(3, 'PD')
 	)
 	an = models.IntegerField(choices=AN_CHOICES, default=1)
+        dti_file = models.FileField(upload_to=get_dti_file_path, null=True, blank=True)
+        mprage_file = models.FileField(upload_to=get_mprage_file_path, null=True, blank=True)
+        bvals_file = models.FileField(upload_to=get_bvals_file_path, null=True, blank=True)
+        bvecs_file = models.FileField(upload_to=get_bvecs_file_path, null=True, blank=True)
+        labels_file = models.FileField(upload_to=get_labels_file_path, null=True, blank=True)
 
 	def __eq__(self, other):
 		if isinstance(other, self.__class__):

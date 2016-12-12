@@ -20,7 +20,7 @@ class DatasetForm(forms.ModelForm):
 class SubjectForm(forms.ModelForm):
     class Meta:
         model = Subject
-        fields = ['dataset', 'sub_id', 'sess_id', 'func_scan', 'struct_scan','an', 'slice_timing']
+        fields = ['dataset', 'sub_id', 'sess_id', 'func_scan', 'struct_scan','an', 'slice_timing', 'dti_file', 'mprage_file', 'bvals_file', 'bvecs_file', 'labels_file']
         labels={
         	'dataset': _('Dataset'),
         	'sub_id': _('Subject ID'),
@@ -28,7 +28,12 @@ class SubjectForm(forms.ModelForm):
         	'func_scan':_('Functional Scan'),
         	'struct_scan':_('Structural Scan'),
         	'an':_('Structural scan type'),
-        	'slice_timing':_('Slice Timing Method')
+        	'slice_timing':_('Slice Timing Method'),
+            'dti_file':_('DTI Image'),
+            'mprage_file':_('MPRAGE Image'),
+            'bvals_file':_('DTI b-values File'),
+            'bvecs_file':_('DTI b-vectors File'),
+            'labels_file':_('Labels File')
         }
         help_texts={
         	'dataset': _('The name of the dataset this subject is a part of.'),
@@ -37,5 +42,10 @@ class SubjectForm(forms.ModelForm):
         	'func_scan':_('the fMRI of this subject.'),
         	'struct_scan':_('the structural MRI of this subject.'),
         	'an':_('The Type of structural scan.'),
-        	'slice_timing':_('The method in which slices were acquired.')
+        	'slice_timing':_('The method in which slices were acquired.'),
+            'dti_file':_('DTI image file for NDMG pipeline'),
+            'mprage_file':_('MPRAGE image file for NDMG pipeline'),
+            'bvals_file':_('DTI b-values file for NDMG pipeline'),
+            'bvecs_file':_('DRI b-vectors file for NDMG pipeline'),
+            'labels_file':_('Labels file for NDMG pipeline')
         }
