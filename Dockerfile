@@ -20,7 +20,7 @@ RUN git clone https://github.com/ebridge2/FNGS_website.git && mkdir /FNGS_server
 RUN cd /FNGS_website/fngs && python manage.py makemigrations analyze && python manage.py migrate
 
 # Get atlases
-RUN cd /FNGS_server && wget http://openconnecto.me/mrdata/share/demo_data/less_small_atlases.zip && unzip less_small_atlases.zip && mv demo_atlases atlases
+RUN cd /FNGS_server && wget http://openconnecto.me/mrdata/share/demo_data/demo_atlases.zip && unzip demo_atlases.zip && mv demo_atlases atlases
 RUN mkdir /ndmg_atlases && wget -rnH --cut-dirs=3 --no-parent -P /ndmg_atlases http://openconnecto.me/mrdata/share/atlases/
 
 # copy over the entrypoint script
