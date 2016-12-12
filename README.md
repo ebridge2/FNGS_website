@@ -184,7 +184,7 @@ And voila! This tutorial is now complete. Feedback can be left in the form of gi
 
 The total runtime for the tutorial should be approximately 10-15 minutes. If you are curious as to what the outputs should look like, I have included some sample quality control below, found in the "explore" tab on the website, clicking the subject you just analyzed, and then clicking to "view".
 
-The first key quality control figure is the motion correction plot, which can be found in the "motion" tab at the bottom:
+The first key quality control figure is the motion correction plot, which can be found in the "motion" tab at the bottom (note that several of these quality control images may appear vertical or horizontal, depending on your monitor width):
 ![Motion Correction Jitter](https://cloud.githubusercontent.com/assets/8883547/21097735/00eb080c-c034-11e6-950d-d31ced00193b.png)
 
 The next quality control figure to be concerned with is the registration plot, which can be found at the bottom of the "reg" tab:
@@ -196,6 +196,8 @@ Next, we want to check out the singular values of each of our principal componen
 Finally, we'll want to look at the timeseries and correlation plots, found at the bottom of the "timeseries" tab:
 ![Timeseries](https://cloud.githubusercontent.com/assets/8883547/21097853/9b23bd10-c034-11e6-9431-d898ca1324c4.png)
 ![Correlation](https://cloud.githubusercontent.com/assets/8883547/21097872/ab2778c8-c034-11e6-957f-a1bec6f2b886.png)
+
+Once you are finished, you can go ahead and close out (CTRL + C) on your terminal window to quite the web service.
 
 ### For people who felt the need to reload the analysis page (like me! the sad thing is I've done it a bunch of times)
 
