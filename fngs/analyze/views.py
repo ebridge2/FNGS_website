@@ -102,8 +102,8 @@ def analysis(dataset_id, dataset, sub_id, output_dir):
 	#ndmg_pipeline(subject.dti_file.url, subject.bvals_file.url, subject.bvecs_file.url, subject.mprage_file.url, settings.AT_FOLDER + '/atlas/MNI152_T1_2mm.nii.gz', settings.AT_FOLDER + '/mask/MNI152_T1_2mm_brain_mask.nii.gz', [settings.AT_FOLDER + '/label/desikan_2mm.nii.gz'], ndmg_outdir)
 
 	ndmg_run_cmd = "ndmg_pipeline " + str(subject.dti_file.url) + " " + str(subject.bvals_file.url) + " " + str(subject.bvecs_file.url) +\
-		" " + str(subject.struct_scan.url) + " " + str(settings.AT_FOLDER + '/atlas/MNI152_T1-2mm.nii.gz') + " " + str(settings.AT_FOLDER +\
-		'/mask/MNI152_T1-2mm_brain_mask.nii.gz') + " " + ndmg_outdir + " " + settings.AT_FOLDER + '/label/desikan-2mm.nii.gz'
+		" " + str(subject.struct_scan.url) + " " + str(settings.AT_FOLDER + '/atlas/MNI152_T1-4mm.nii.gz') + " " + str(settings.AT_FOLDER +\
+		'/mask/MNI152_T1-4mm_brain_mask.nii.gz') + " " + ndmg_outdir + " " + settings.AT_FOLDER + '/label/desikan-4mm.nii.gz'
 	mgu().execute_cmd(ndmg_run_cmd)
 
 	ndmg_bids = imp.load_source('ndmg_bids', '/ndmg/ndmg/scripts/ndmg_bids')
@@ -112,9 +112,9 @@ def analysis(dataset_id, dataset, sub_id, output_dir):
 	#mgu().execute_cmd(ndmg_bids_cmd)
 
 	fngs_pipeline(subject.func_scan.url, subject.struct_scan.url, subject.an,
-				   settings.AT_FOLDER + '/atlas/MNI152_T1-2mm.nii.gz', settings.AT_FOLDER + '/atlas/MNI152_T1-2mm_brain.nii.gz',
-				   settings.AT_FOLDER + '/mask/MNI152_T1-2mm_brain_mask.nii.gz', settings.AT_FOLDER + '/mask/HarvOx_lv_thr25-2mm.nii.gz', 
-				   [settings.AT_FOLDER + '/label/desikan-2mm.nii.gz'], output_dir, stc=subject.slice_timing, fmt='graphml')
+				   settings.AT_FOLDER + '/atlas/MNI152_T1-4mm.nii.gz', settings.AT_FOLDER + '/atlas/MNI152_T1-4mm_brain.nii.gz',
+				   settings.AT_FOLDER + '/mask/MNI152_T1-4mm_brain_mask.nii.gz', settings.AT_FOLDER + '/mask/HarvOx_lv_thr25-4mm.nii.gz', 
+				   [settings.AT_FOLDER + '/label/desikan-4mm.nii.gz'], output_dir, stc=subject.slice_timing, fmt='graphml')
 
 
 
