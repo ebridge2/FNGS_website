@@ -84,13 +84,11 @@ def create_subject(request, dataset_id):
 				'form': form,
 				'error_message': 'Brain File must be .nii or .nii.gz',
 			}
-			return render(request, 'analyze/create_subject.html', context)
-                
-                subject.dti_file = request.FILES['dti_file']
-                subject.mprage_file = request.FILES['mprage_file']
-                subject.bvals_file = request.FILES['bvals_file']
-                subject.bvecs_file = request.FILES['bvecs_file']
-                subject.labels_file = request.FILES['labels_file']
+			return render(request, 'analyze/create_subject.html', context)             
+		subject.dti_file = request.FILES['dti_file']
+		subject.bvals_file = request.FILES['bvals_file']
+		subject.bvecs_file = request.FILES['bvecs_file']
+		subject.labels_file = request.FILES['labels_file']
 		print subject.func_scan.url
 		subject.save()
 		return render(request, 'analyze/dataset.html', {'dataset': dataset})
@@ -103,23 +101,24 @@ def analysis(dataset_id, dataset, sub_id, output_dir):
 	subject = get_object_or_404(Subject, dataset=dataset, sub_id=sub_id)
 	subject.output_url = output_dir
 
-        ndmg_outdir = settings.OUTPUT_DIR + dataset_id + "/ndmgresults"
-        #ndmg_pipeline(subject.dti_file.url, subject.bvals_file.url, subject.bvecs_file.url, subject.mprage_file.url, settings.AT_FOLDER + '/atlas/MNI152_T1_2mm.nii.gz', settings.AT_FOLDER + '/mask/MNI152_T1_2mm_brain_mask.nii.gz', [settings.AT_FOLDER + '/label/desikan_2mm.nii.gz'], ndmg_outdir)
+	ndmg_outdir = settings.OUTPUT_DIR + dataset_id + "/ndmgresults"
+	#ndmg_pipeline(subject.dti_file.url, subject.bvals_file.url, subject.bvecs_file.url, subject.mprage_file.url, settings.AT_FOLDER + '/atlas/MNI152_T1_2mm.nii.gz', settings.AT_FOLDER + '/mask/MNI152_T1_2mm_brain_mask.nii.gz', [settings.AT_FOLDER + '/label/desikan_2mm.nii.gz'], ndmg_outdir)
 
-        ndmg_run_cmd = "ndmg_pipeline " + str(subject.dti_file.url) + " " + str(subject.bvals_file.url) + " " + str(subject.bvecs_file.url) + " " + str(subject.mprage_file.url) + " " + str(settings.AT_FOLDER + '/atlas/MNI152_T1_2mm.nii.gz') + " " + str(settings.AT_FOLDER + '/mask/MNI152_T1_2mm_brain_mask.nii.gz') + " " + ndmg_outdir + " " + str(subject.labels_file.url)
-        mgu().execute_cmd(ndmg_run_cmd)
+	ndmg_run_cmd = "ndmg_pipeline " + str(subject.dti_file.url) + " " + str(subject.bvals_file.url) + " " + str(subject.bvecs_file.url) +\
+		" " + str(subject.struct_scan.url) + " " + str(settings.AT_FOLDER + '/atlas/MNI152_T1_2mm.nii.gz') + " " + str(settings.AT_FOLDER +\
+		'/mask/MNI152_T1_2mm_brain_mask.nii.gz') + " " + ndmg_outdir + " " + settings.AT_FOLDER + '/label/desikan_2mm.nii.gz'
+	mgu().execute_cmd(ndmg_run_cmd)
 
-        ndmg_bids = imp.load_source('ndmg_bids', '/ndmg/ndmg/scripts/ndmg_bids')
-        ndmg_bids.group_level(ndmg_outdir+"/graphs/", ndmg_outdir+"/qc", False)
+	ndmg_bids = imp.load_source('ndmg_bids', '/ndmg/ndmg/scripts/ndmg_bids')
+	ndmg_bids.group_level(ndmg_outdir+"/graphs/", ndmg_outdir+"/qc", False)
 
-        #ndmg_bids_cmd = "ndmg_bids " + ndmg_outdir + "/graphs/ " + ndmg_outdir + "/qc group"
-        #mgu().execute_cmd(ndmg_bids_cmd)
-        
+	#ndmg_bids_cmd = "ndmg_bids " + ndmg_outdir + "/graphs/ " + ndmg_outdir + "/qc group"
+	#mgu().execute_cmd(ndmg_bids_cmd)
 
 	fngs_pipeline(subject.func_scan.url, subject.struct_scan.url, subject.an,
-                      settings.AT_FOLDER + '/atlas/MNI152_T1_2mm.nii.gz', settings.AT_FOLDER + '/atlas/MNI152_T1_2mm_brain.nii.gz',
-                      settings.AT_FOLDER + '/mask/MNI152_T1_2mm_brain_mask.nii.gz', settings.AT_FOLDER + '/mask/HarvOx_lv_thr25_2mm.nii.gz', 
-                      [settings.AT_FOLDER + '/label/desikan_2mm.nii.gz'], output_dir, stc=subject.slice_timing, fmt='graphml')
+				   settings.AT_FOLDER + '/atlas/MNI152_T1_2mm.nii.gz', settings.AT_FOLDER + '/atlas/MNI152_T1_2mm_brain.nii.gz',
+				   settings.AT_FOLDER + '/mask/MNI152_T1_2mm_brain_mask.nii.gz', settings.AT_FOLDER + '/mask/HarvOx_lv_thr25_2mm.nii.gz', 
+				   [settings.AT_FOLDER + '/label/desikan_2mm.nii.gz'], output_dir, stc=subject.slice_timing, fmt='graphml')
 
 
 
@@ -176,11 +175,9 @@ def delete_subject(request, dataset_id, sub_id):
 	# clear all traces of the subject from our storage system
 	mgu().execute_cmd("rm -rf " + subject.func_scan.url)
 	mgu().execute_cmd("rm -rf " + subject.struct_scan.url)
-        mgu().execute_cmd("rm -rf " + subject.dti_file.url)
-        mgu().execute_cmd("rm -rf " + subject.mprage_file.url)
-        mgu().execute_cmd("rm -rf " + subject.bvals_file.url)
-        mgu().execute_cmd("rm -rf " + subject.bvecs_file.url)
-        mgu().execute_cmd("rm -rf " + subject.labels_file.url)
+	mgu().execute_cmd("rm -rf " + subject.dti_file.url)
+	mgu().execute_cmd("rm -rf " + subject.bvals_file.url)
+	mgu().execute_cmd("rm -rf " + subject.bvecs_file.url)
 	if subject.output_url is not None:
 		mgu().execute_cmd("rm -rf " + subject.output_url)
 	subject.delete()
