@@ -147,21 +147,20 @@ Before we add any information here, let's return to a new terminal window and do
 
 ```
 cd /tmp/
-$ wget http://openconnecto.me/mrdata/share/demo_data/full_demo_func.zip # this might take a few seconds to download
-$ unzip full_demo_func.zip
-# if you would prefer to use smaller data, make sure to use the appropriate functional scan and anatomical scan
-$ wget http://openconnecto.me/mrdata/share/demo_data/small_demo_func.zip
-$ unzip small_demo_func.zip
+$ wget http://openconnecto.me/mrdata/share/demo_data/project_demo.zip # this might take a few seconds to download
+$ unzip project_demo.zip
 ```
 This gives us 2 subjects, and 2 trials per subject, of demo data to play around with. Next, let's go back to the website, and fill out the required information for the subject. I chose subject 0025864, scan 1, for this demo. As you can see, we will need to include the functional scan and the structural scan, which can be found at the path "/tmp/full_func/BNU1/sub-0025864/session-1/func/sub-0025864_session-1_bold.nii.gz" and "/tmp/full_func/BNU1/sub-0025864/session-1/anat/sub-0025864_session-1_T1w.nii.gz" respectively  (assuming you downloaded the .zip file to the /tmp/ directory):
 
-![Choosing Functional Scan](https://cloud.githubusercontent.com/assets/8883547/20987531/0da6906c-bc9b-11e6-83cd-d19fbbba9550.png)
-![Choosing Anatomical Scan](https://cloud.githubusercontent.com/assets/8883547/20987510/f4879f7c-bc9a-11e6-8da4-287261324d01.png)
+![Choosing Functional Scan](https://cloud.githubusercontent.com/assets/8883547/21088391/9543aee2-bffc-11e6-89c4-0d9e42adcd80.png)
+![Choosing Anatomical Scan](https://cloud.githubusercontent.com/assets/8883547/21088401/b6c6d6ca-bffc-11e6-912d-f3281e7b88ab.png)
+![Choosing DTI Image](https://cloud.githubusercontent.com/assets/8883547/21088425/db91b70e-bffc-11e6-974e-9b55d3eaa5c7.png)
+![Choosing Bvalues file](https://cloud.githubusercontent.com/assets/8883547/21088432/ea95033c-bffc-11e6-861c-1edd2690bc49.png)
+![Choosing DTI bvecs file](https://cloud.githubusercontent.com/assets/8883547/21088437/f8d4e80e-bffc-11e6-8a3d-65cceaee09f1.png)
 
 Note that I also went ahead and selected the Structural scan type (T1w) and the Slice Timing Method (Interleaved). Information about the structural scan type is necessary to ensure that when we segment our anatomical image into different brain tissues for nuisance correction, we know what sorts of intensities to look for (ie, white matter looks different in T1w than T2w). Slice timing acquisition is a measure of the acquisition sequence in which the image is acquired. This is unique to the individual dataset, so see the dataset release information if you are not sure which to choose (or, just leave this blank and select "None" in which slice timing correction will not be performed). 
 
-Finally, once you have the entire form filled out, click to add the subject, and wait a few seconds while the upload commences.
-![Add the subject](https://cloud.githubusercontent.com/assets/8883547/20987564/2d09fe44-bc9b-11e6-9f48-b15358c63fae.png)
+Finally, once you have the entire form filled out, click to add the subject, and wait a few seconds while the upload commences (should take approximately one minute).
 
 Note that the web service does not yet have a queuing system, so the next steps require care when uploading your scans for analysis. Take great care not to click the analyze button twice (before the previous analysis is completed and the results are vieweable and downloadable) or delete while an analysis is taking place. This is because the lack of a queuing system means that jobs are just spawned in process modules (a naive, short term solution), so processes are run disconnected from the python session, and analyzing again will spawn new processes over the existing ones (leading to processes being overallocated, and probably crashing the program), and in the case of deletes, leading to processes spontaneously crashing (and probably also crashing the program). Additionally, there is not yet a feature to update your subjects after you upload the data, so if you upload something mistakenly, just delete it and start over. These features are already on the backlog for second semester, so hopefully it will be a lot smoother in the near future.
 
