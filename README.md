@@ -176,6 +176,10 @@ Finally, we'll want to look at the timeseries and correlation plots, found at th
 ![Timeseries](https://cloud.githubusercontent.com/assets/8883547/21097853/9b23bd10-c034-11e6-9431-d898ca1324c4.png)
 ![Correlation](https://cloud.githubusercontent.com/assets/8883547/21097872/ab2778c8-c034-11e6-957f-a1bec6f2b886.png)
 
+If you download the results from the "explore" tab, select the dataset, and then select the subject, the downloaded "zip" archive will include a summary figure for the DTI processing in the "qc" directory. If you open this page in your web browser, you will see:
+
+![DTI results](https://cloud.githubusercontent.com/assets/8883547/21120077/8f15881e-c093-11e6-8b62-b1fb8ca74e3e.png)
+
 Once you are finished, you can go ahead and close out (CTRL + C) on your terminal window to quite the web service.
 
 ### For people who felt the need to reload the analysis page (like me! the sad thing is I've done it a bunch of times)
