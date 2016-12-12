@@ -9,6 +9,8 @@
 [Pulling the Existing Docker Container](#pulling)  
 [Running the Web Service](#webserver)  
 
+NOTE: If you are in the NeurodataDesign class, I would recomment doing the "Building the Docker container" tutorial. 
+
 <a name="pipeline"></a>
 ### Pipeline Use
 ```
@@ -37,16 +39,6 @@ $ git clone https://github.com/ebridge2/FNGS_website.git
 $ cd FNGS_website
 $ docker build --no-cache -t <your-handle>/fngs .
 
-# -v argument allows your container to use data that is only available locally. Ie, in this case, the data in
-# /local/path/to/your/data/ would be visible inside the docker container at /data
-$ docker run -ti -v /local/path/to/your/data/:/data -p <portnum>:<portnum>  --entrypoint /bin/bash <your-handle>/fngs
-# takes you into the docker container
-# otherwise, you can just skip the -v flag entirely if you plan to use the demo data
-$ docker run -ti -p <portnum>:<portnum> --entrypoint /bin/bash <your-handle>/fngs
-
-$ cd /ndmg/ndmg/scripts/
-# runs the demo to make sure things work
-$ ./ndmg_demo-func.sh
 $ docker run -ti -p <portnum>:8000 <your-handle>/fngs
 
 System check identified some issues:
@@ -71,21 +63,8 @@ Quit the server with CONTROL-C.
 ```
 $ docker pull ericw95/fngs:0.1.0
 
-# -v argument allows your container to use data that is only available locally. Ie, in this case, the data in
-# /local/path/to/your/data/ would be visible inside the docker container at /data
-$ docker run -ti -v /local/path/to/your/data/:/data --entrypoint /bin/bash ericw95/fngs:0.1.0
-# otherwise, you can just skip the -v flag entirely if you plan to use the demo data
-$ docker run -ti --entrypoint /bin/bash ericw95/fngs:0.1.0
-
-# takes you into the docker container
-
-
-$ cd /ndmg/ndmg/scripts/
-$ ./ndmg_demo-func.sh
-# runs the demo
-
 # from the host system with the docker container properly working
-$ docker run -ti -p <portnum>:8000 ericw95/fngs:0.0.4
+$ docker run -ti -p <portnum>:8000 ericw95/fngs:0.1.0
 
 System check identified some issues:
 
