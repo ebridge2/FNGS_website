@@ -20,7 +20,7 @@ class DatasetForm(forms.ModelForm):
 class SubjectForm(forms.ModelForm):
 	class Meta:
 		model = Subject
-		fields = ['dataset', 'sub_id', 'sess_id', 'func_scan', 'struct_scan','an', 'slice_timing', 'dti_file', 'mprage_file', 'bvals_file', 'bvecs_file', 'labels_file']
+		fields = ['dataset', 'sub_id', 'sess_id', 'func_scan', 'struct_scan','an', 'slice_timing', 'dti_file', 'bvals_file', 'bvecs_file']
 		labels={
 			'dataset': _('Dataset'),
 			'sub_id': _('Subject ID'),
