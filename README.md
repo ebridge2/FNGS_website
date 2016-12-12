@@ -178,6 +178,23 @@ Now, navigate over to the "explore" tab and we can see all of the cool stuff our
 
 And voila! This tutorial is now complete. Feedback can be left in the form of git issues, and if you have any recommendations or things that you'd like to see incorporated into the pipeline (anything from specific fMRI processing techniques to helpful web dev frameworks) I'm all ears. Thanks!
 
+### Expected Outputs
+
+The total runtime for the tutorial should be approximately 10-15 minutes. If you are curious as to what the outputs should look like, I have included some sample quality control below, found in the "explore" tab on the website, clicking the subject you just analyzed, and then clicking to "view".
+
+The first key quality control figure is the motion correction plot, which can be found in the "motion" tab at the bottom:
+![Motion Correction Jitter](https://cloud.githubusercontent.com/assets/8883547/21097735/00eb080c-c034-11e6-950d-d31ced00193b.png)
+
+The next quality control figure to be concerned with is the registration plot, which can be found at the bottom of the "reg" tab:
+![Registration](https://cloud.githubusercontent.com/assets/8883547/21097773/37a633bc-c034-11e6-9fe1-33bc7b8273d5.png)
+
+Next, we want to check out the singular values of each of our principal components in our scree plot, found at the bottom of the "nuis" tab:
+![Scree](https://cloud.githubusercontent.com/assets/8883547/21097812/636738e8-c034-11e6-9148-398db29f0c72.png)
+
+Finally, we'll want to look at the timeseries and correlation plots, found at the bottom of the "timeseries" tab:
+![Timeseries](https://cloud.githubusercontent.com/assets/8883547/21097853/9b23bd10-c034-11e6-9431-d898ca1324c4.png)
+![Correlation](https://cloud.githubusercontent.com/assets/8883547/21097872/ab2778c8-c034-11e6-957f-a1bec6f2b886.png)
+
 ### For people who felt the need to reload the analysis page (like me! the sad thing is I've done it a bunch of times)
 
 If you accidentally reload the analysis page or something gets screwed up, I've had the best luck instead of trying to figure out how messed up it is and going from there, just resetting the service entirely. Go to the directory where you have the website installed:
