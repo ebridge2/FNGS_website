@@ -150,7 +150,7 @@ cd /tmp/
 $ wget http://openconnecto.me/mrdata/share/demo_data/project_demo.zip # this might take a few seconds to download
 $ unzip project_demo.zip
 ```
-This gives us 2 subjects, and 2 trials per subject, of demo data to play around with. Next, let's go back to the website, and fill out the required information for the subject. I chose subject 0025864, scan 1, for this demo. As you can see, we will need to include the functional scan and the structural scan, which can be found at the path "/tmp/full_func/BNU1/sub-0025864/session-1/func/sub-0025864_session-1_bold.nii.gz" and "/tmp/full_func/BNU1/sub-0025864/session-1/anat/sub-0025864_session-1_T1w.nii.gz" respectively  (assuming you downloaded the .zip file to the /tmp/ directory):
+This gives us a subject's worth of DTI and fMRI data to play around with. I chose subject 0025864, scan 1, for this demo. As you can see, we will need to include the functional scan and the structural scan, which can be found at the path "/tmp/full_func/BNU1/sub-0025864/session-1/func/sub-0025864_session-1_bold.nii.gz" and "/tmp/full_func/BNU1/sub-0025864/session-1/anat/sub-0025864_session-1_T1w.nii.gz" respectively  (assuming you downloaded the .zip file to the /tmp/ directory):
 
 ![Choosing Functional Scan](https://cloud.githubusercontent.com/assets/8883547/21088391/9543aee2-bffc-11e6-89c4-0d9e42adcd80.png)
 ![Choosing Anatomical Scan](https://cloud.githubusercontent.com/assets/8883547/21088401/b6c6d6ca-bffc-11e6-912d-f3281e7b88ab.png)
