@@ -67,7 +67,6 @@ def create_subject(request, dataset_id):
 		subject.struct_scan = request.FILES['struct_scan']
 		file_type = subject.struct_scan.url.split('.', 1)[-1]
 		file_type = file_type.lower()
-		print(file_type)
 		if file_type not in BRAIN_FILE_TYPES:
 			context = {
 				'album': dataset,
@@ -88,8 +87,6 @@ def create_subject(request, dataset_id):
 		subject.dti_file = request.FILES['dti_file']
 		subject.bvals_file = request.FILES['bvals_file']
 		subject.bvecs_file = request.FILES['bvecs_file']
-		subject.labels_file = request.FILES['labels_file']
-		print subject.func_scan.url
 		subject.save()
 		return render(request, 'analyze/dataset.html', {'dataset': dataset})
 	context = {
