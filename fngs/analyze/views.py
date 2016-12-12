@@ -108,7 +108,6 @@ def analysis(dataset_id, dataset, sub_id, output_dir):
 
 	ndmg_bids = imp.load_source('ndmg_bids', '/ndmg/ndmg/scripts/ndmg_bids')
 	ndmg_bids.group_level(ndmg_outdir+"/graphs/", ndmg_outdir+"/qc", False)
-c
 	#ndmg_bids_cmd = "ndmg_bids " + ndmg_outdir + "/graphs/ " + ndmg_outdir + "/qc group"
 	#mgu().execute_cmd(ndmg_bids_cmd)
 
