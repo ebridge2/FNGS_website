@@ -61,20 +61,21 @@ Starting development server at http://localhost:8000/ # NOTE: this is NOT the ac
 Quit the server with CONTROL-C.
 
 # Note: if you are on cortex, your address will be cortex.jhu.edu:<port-num>.
-# if you are only deploying locally, your address will be 0.0.0.0:<port-num>.
+# if you are only deploying locally, your address will be 
+0.0:<port-num>.
 # proceed to tutorial below about setting up the server
 ```
 
 <a name="pulling"></a>
 ### Pulling Docker Container from Remote
 ```
-$ docker pull ericw95/fngs:0.0.4
+$ docker pull ericw95/fngs:0.1.0
 
 # -v argument allows your container to use data that is only available locally. Ie, in this case, the data in
 # /local/path/to/your/data/ would be visible inside the docker container at /data
-$ docker run -ti -v /local/path/to/your/data/:/data --entrypoint /bin/bash ericw95/fngs:0.0.4
+$ docker run -ti -v /local/path/to/your/data/:/data --entrypoint /bin/bash ericw95/fngs:0.1.0
 # otherwise, you can just skip the -v flag entirely if you plan to use the demo data
-$ docker run -ti --entrypoint /bin/bash ericw95/fngs:0.0.4
+$ docker run -ti --entrypoint /bin/bash ericw95/fngs:0.1.0
 
 # takes you into the docker container
 
