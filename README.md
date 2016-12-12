@@ -180,6 +180,7 @@ Now, navigate over to the "explore" tab and we can see all of the cool stuff our
 And voila! This tutorial is now complete. Feedback can be left in the form of git issues, and if you have any recommendations or things that you'd like to see incorporated into the pipeline (anything from specific fMRI processing techniques to helpful web dev frameworks) I'm all ears. Thanks!
 
 ### Expected Outputs
+** Note: for the purposes of this tutorial, the registration atlases have been replaced with heavily downsampled versions so that this can be checked faster. As such, many steps (particularly, registration and nuisance) lose much of their precision, as they rely on the brains being higher resolution than ~6mm like they presently are for anatomical landmarking.
 
 The total runtime for the tutorial should be approximately 10-15 minutes. If you are curious as to what the outputs should look like, I have included some sample quality control below, found in the "explore" tab on the website, clicking the subject you just analyzed, and then clicking to "view".
 
