@@ -147,11 +147,8 @@ Before we add any information here, let's return to a new terminal window and do
 
 ```
 cd /tmp/
-$ wget http://openconnecto.me/mrdata/share/demo_data/full_demo_func.zip # this might take a few seconds to download
-$ unzip full_demo_func.zip
-# if you would prefer to use smaller data, make sure to use the appropriate functional scan and anatomical scan
-$ wget http://openconnecto.me/mrdata/share/demo_data/small_demo_func.zip
-$ unzip small_demo_func.zip
+$ wget http://openconnecto.me/mrdata/share/demo_data/project_demo.zip # this might take a few seconds to download
+$ unzip project_demo.zip
 ```
 This gives us 2 subjects, and 2 trials per subject, of demo data to play around with. Next, let's go back to the website, and fill out the required information for the subject. I chose subject 0025864, scan 1, for this demo. As you can see, we will need to include the functional scan and the structural scan, which can be found at the path "/tmp/full_func/BNU1/sub-0025864/session-1/func/sub-0025864_session-1_bold.nii.gz" and "/tmp/full_func/BNU1/sub-0025864/session-1/anat/sub-0025864_session-1_T1w.nii.gz" respectively  (assuming you downloaded the .zip file to the /tmp/ directory):
 
