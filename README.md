@@ -61,10 +61,10 @@ Quit the server with CONTROL-C.
 <a name="pulling"></a>
 ### Pulling Docker Container from Remote
 ```
-$ docker pull ericw95/fngs:0.1.0
+$ docker pull ericw95/fngs:0.1.1
 
 # from the host system with the docker container properly working
-$ docker run -ti -p <portnum>:8000 ericw95/fngs:0.1.0
+$ docker run -ti -p <portnum>:8000 ericw95/fngs:0.1.1
 
 System check identified some issues:
 
