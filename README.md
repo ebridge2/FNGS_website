@@ -182,7 +182,7 @@ If you download the results from the "explore" tab, select the dataset, and then
 
 Once you are finished, you can go ahead and close out (CTRL + C) on your terminal window to quite the web service.
 
-### For people who felt the need to reload the analysis page (like me! the sad thing is I've done it a bunch of times)
+### For people who felt the need to reload the analysis page (I did it a bunch of times, and I built the thing, so no shame :P)
 
 If you accidentally reload the analysis page or something gets screwed up, I've had the best luck instead of trying to figure out how messed up it is and going from there, just resetting the service entirely. Go to the directory where you have the website installed:
 ```
