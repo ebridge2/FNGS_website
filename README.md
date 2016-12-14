@@ -109,7 +109,7 @@ $ python manage.py runserver (desired_ip):<port_num>
 ```
 <a name="webserver"></a>
 ## Website Tutorial
-
+This tutorial requires around 4-6 gigs of ram. 
 Following the link given by the service will take you to the home page:
 ![FNGS Homepage](https://cloud.githubusercontent.com/assets/8883547/20985816/12fabc48-bc94-11e6-90d8-d74aa0e1bf70.png)
 Click the link above to take you to the "Analyze" Tab.
