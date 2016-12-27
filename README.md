@@ -127,8 +127,8 @@ Before we add any information here, let's return to a new terminal window and do
 
 ```
 cd /tmp/
-$ wget http://openconnecto.me/mrdata/share/demo_data/project_demo.zip # this might take a few seconds to download
-$ unzip project_demo.zip
+$ wget http://openconnecto.me/mrdata/share/demo_data/ndmg_demo.zip # this might take a few seconds to download
+$ unzip ndmg_demo.zip
 ```
 This gives us a subject's worth of DTI and fMRI data to play around with. I chose subject 0025864, scan 1, for this demo. As you can see, we will need to include the functional scan and the structural scan, which can be found at the path "/tmp/full_func/BNU1/sub-0025864/session-1/func/sub-0025864_session-1_bold.nii.gz" and "/tmp/full_func/BNU1/sub-0025864/session-1/anat/sub-0025864_session-1_T1w.nii.gz" respectively  (assuming you downloaded the .zip file to the /tmp/ directory):
 
