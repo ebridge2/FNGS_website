@@ -95,7 +95,7 @@ def create_subject(request, dataset_id):
 	return render(request, 'analyze/create_subject.html', context)
 
 def analysis(dataset_id, dataset, sub_id, output_dir):
-    res='2mm'
+	res='2mm'
 	subject = get_object_or_404(Subject, dataset=dataset, sub_id=sub_id)
 	subject.output_url = output_dir
 
