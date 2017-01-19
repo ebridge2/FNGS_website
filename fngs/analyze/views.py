@@ -102,14 +102,14 @@ def analysis(dataset_id, dataset, sub_id, output_dir):
 	ndmg_outdir = settings.OUTPUT_DIR + dataset_id + "/ndmgresults"
 	#ndmg_pipeline(subject.dti_file.url, subject.bvals_file.url, subject.bvecs_file.url, subject.mprage_file.url, settings.AT_FOLDER + '/atlas/MNI152_T1_2mm.nii.gz', settings.AT_FOLDER + '/mask/MNI152_T1_2mm_brain_mask.nii.gz', [settings.AT_FOLDER + '/label/desikan_2mm.nii.gz'], ndmg_outdir)
 
-	ndmg_run_cmd = "ndmg_pipeline " + str(subject.dti_file.url) + " " + str(subject.bvals_file.url) + " " + str(subject.bvecs_file.url) +\
-		" " + str(subject.struct_scan.url) + " " + str(settings.AT_FOLDER + '/atlas/MNI152_T1-'+res+'.nii.gz') + " " + str(settings.AT_FOLDER +\
-		'/mask/MNI152_T1-'+res+'_brain_mask.nii.gz') + " " + ndmg_outdir + " " + settings.AT_FOLDER + '/label/desikan-'+res+'.nii.gz'
-	mgu().execute_cmd(ndmg_run_cmd)
+	#ndmg_run_cmd = "ndmg_pipeline " + str(subject.dti_file.url) + " " + str(subject.bvals_file.url) + " " + str(subject.bvecs_file.url) +\
+	#	" " + str(subject.struct_scan.url) + " " + str(settings.AT_FOLDER + '/atlas/MNI152_T1-'+res+'.nii.gz') + " " + str(settings.AT_FOLDER +\
+	#	'/mask/MNI152_T1-'+res+'_brain_mask.nii.gz') + " " + ndmg_outdir + " " + settings.AT_FOLDER + '/label/desikan-'+res+'.nii.gz'
+	#mgu().execute_cmd(ndmg_run_cmd)
 
-	ndmg_bids = imp.load_source('ndmg_bids', '/ndmg/ndmg/scripts/ndmg_bids')
-	ndmg_bids.group_level(ndmg_outdir+"/graphs/", ndmg_outdir+"/qc", False)
-	ndmg_bids_cmd = "ndmg_bids " + ndmg_outdir + "/graphs/ " + ndmg_outdir + "/qc group"
+	#ndmg_bids = imp.load_source('ndmg_bids', '/ndmg/ndmg/scripts/ndmg_bids')
+	#ndmg_bids.group_level(ndmg_outdir+"/graphs/", ndmg_outdir+"/qc", False)
+	#ndmg_bids_cmd = "ndmg_bids " + ndmg_outdir + "/graphs/ " + ndmg_outdir + "/qc group"
 	#mgu().execute_cmd(ndmg_bids_cmd)
 
 	fngs_pipeline(subject.func_scan.url, subject.struct_scan.url, subject.an,
