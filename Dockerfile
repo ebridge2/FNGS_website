@@ -9,7 +9,7 @@ RUN pip install matplotlib==1.5.1
 RUN apt-get install python-dateutil
 RUN apt-get install -y zip unzip
 RUN apt-get install -y vim git
-RUN git clone -b improve-brain-extraction https://github.com/neurodata/ndmg.git /ndmg && cd /ndmg && python setup.py install
+RUN git clone -b fft_testbranch https://github.com/neurodata/ndmg.git /ndmg && cd /ndmg && python setup.py install
 # apparently matplotlib gets messed up during install of ndmg
 RUN pip install -U --force-reinstall matplotlib==1.5.1
 
