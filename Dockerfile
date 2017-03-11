@@ -9,13 +9,14 @@ RUN pip install matplotlib==1.5.1
 RUN apt-get install python-dateutil
 RUN apt-get install -y zip unzip
 RUN apt-get install -y vim git
-RUN git clone -b fft_testbranch https://github.com/neurodata/ndmg.git /ndmg && cd /ndmg && python setup.py install
+RUN git clone -b fmri-merge https://github.com/neurodata/ndmg.git /ndmg && cd /ndmg && python setup.py install
 # apparently matplotlib gets messed up during install of ndmg
 RUN pip install -U --force-reinstall matplotlib==1.5.1
 
 # clone the website repo and make the location for the downloads
 RUN git clone https://github.com/ebridge2/FNGS_website.git && mkdir /FNGS_server && mkdir /FNGS_server/input_data && mkdir /FNGS_server/output_data
 
+RUN pip install psutil
 # download the website
 RUN cd /FNGS_website/fngs && python manage.py makemigrations analyze && python manage.py migrate
 
