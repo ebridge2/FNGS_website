@@ -5,8 +5,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from .models import Dataset, Subject
 from .forms import DatasetForm, SubjectForm
-from ndmg.scripts.fngs_pipeline import fngs_pipeline
-from ndmg.scripts.ndmg_pipeline import ndmg_pipeline
+from ndmg.scripts.ndmg_func_pipeline import ndmg_func_pipeline as fngs_pipeline
+from ndmg.scripts.ndmg_dwi_pipeline import ndmg_dwi_pipeline as ndmg_pipeline
 from django.conf import settings
 import time
 import importlib
@@ -112,7 +112,7 @@ def analysis(dataset_id, dataset, sub_id, output_dir):
 	#ndmg_bids_cmd = "ndmg_bids " + ndmg_outdir + "/graphs/ " + ndmg_outdir + "/qc group"
 	#mgu().execute_cmd(ndmg_bids_cmd)
 
-	fngs_pipeline(subject.func_scan.url, subject.struct_scan.url, subject.an,
+	fngs_pipeline(subject.func_scan.url, subject.struct_scan.url,
 				   settings.AT_FOLDER + '/atlas/MNI152_T1-'+res+'.nii.gz', settings.AT_FOLDER + '/atlas/MNI152_T1-'+res+'_brain.nii.gz',
 				   settings.AT_FOLDER + '/mask/MNI152_T1-'+res+'_brain_mask.nii.gz', settings.AT_FOLDER + '/mask/HarvOx_lv_thr25-'+res+'.nii.gz', 
 				   [settings.AT_FOLDER + '/label/desikan-'+res+'.nii.gz'], output_dir, stc=subject.slice_timing, fmt='graphml')
