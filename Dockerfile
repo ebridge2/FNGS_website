@@ -11,7 +11,7 @@ RUN apt-get install -y vim git
 RUN pip install matplotlib==1.5.1
 # testing
 
-RUN git clone -b fmri-merge https://github.com/neurodata/ndmg.git /ndmg && cd /ndmg && python setup.py install
+RUN git clone -b eric-dev-gkiar-fmri https://github.com/neurodata/ndmg.git /ndmg && cd /ndmg && python setup.py install
 # apparently matplotlib gets messed up during install of ndmg
 RUN pip install -U --force-reinstall matplotlib==1.5.1
 
@@ -20,7 +20,7 @@ RUN git clone https://github.com/ebridge2/FNGS_website.git && mkdir /FNGS_server
 
 RUN pip install psutil
 # download the website
-RUN cd /FNGS_website/fngs && python manage.py makemigrations analyze && python manage.py migrate
+#RUN cd /FNGS_website/fngs && python manage.py makemigrations analyze && python manage.py migrate
 
 # Get atlases
 RUN cd /FNGS_server && wget http://openconnecto.me/mrdata/share/atlases/fmri_atlases.zip && unzip fmri_atlases.zip
