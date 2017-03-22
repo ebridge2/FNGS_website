@@ -11,12 +11,13 @@ RUN apt-get install -y vim git
 RUN pip install matplotlib==1.5.1
 # testing
 
+RUN apt-get install -y r-base-core
 RUN git clone -b eric-dev-gkiar-fmri https://github.com/neurodata/ndmg.git /ndmg && cd /ndmg && python setup.py install
 # apparently matplotlib gets messed up during install of ndmg
 RUN pip install -U --force-reinstall matplotlib==1.5.1
 
 # clone the website repo and make the location for the downloads
-RUN git clone https://github.com/ebridge2/FNGS_website.git && mkdir /FNGS_server && mkdir /FNGS_server/input_data && mkdir /FNGS_server/output_data
+# RUN git clone https://github.com/ebridge2/FNGS_website.git && mkdir /FNGS_server && mkdir /FNGS_server/input_data && mkdir /FNGS_server/output_data
 
 RUN pip install psutil
 # download the website
