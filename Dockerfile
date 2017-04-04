@@ -12,7 +12,7 @@ RUN pip install matplotlib==1.5.1
 # testing
 
 RUN apt-get install -y r-base-core
-RUN git clone -b eric-dev-gkiar-fmri https://github.com/neurodata/ndmg.git /ndmg && cd /ndmg && python setup.py install
+RUN h=h git clone -b eric-dev-gkiar-fmri https://github.com/neurodata/ndmg.git /ndmg && cd /ndmg && python setup.py install
 # apparently matplotlib gets messed up during install of ndmg
 RUN pip install -U --force-reinstall matplotlib==1.5.1
 
@@ -29,6 +29,8 @@ RUN mkdir /ndmg_atlases && wget -rnH --cut-dirs=3 --no-parent -P /ndmg_atlases h
 
 # copy over the entrypoint script
 COPY ./startfngs.sh /
+ADD ./.vimrc .vimrc
+
 # and add it as an entrypoint
 # ENTRYPOINT ["/startfngs.sh"]
 ENTRYPOINT ["ndmg_bids"]
