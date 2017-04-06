@@ -21,4 +21,4 @@ COPY ./startfngs.sh /
 ADD ./.vimrc .vimrc
 
 # and add it as an entrypoint
-# ENTRYPOINT ["/startfngs.sh"]
+ENTRYPOINT ["ndmg_bids"]
