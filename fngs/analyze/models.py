@@ -23,6 +23,9 @@ def get_bvals_file_path(instance, filename):
 def get_bvecs_file_path(instance, filename):
 	return os.path.join("/".join([str(instance.dataset), str(instance.sub_id), str(instance.sess_id), "bvecs", filename]))
 
+def get_creds_file_path(instance, filename):
+	return os.path.join("/".join([str(instance.dataset), str(instance.sub_id), str(instance.sess_id), "creds", filename]))
+
 
 class Dataset(models.Model):
 	dataset_id = models.CharField(max_length=30)
@@ -67,6 +70,23 @@ class Subject(models.Model):
 	dti_file = models.FileField(upload_to=get_dti_file_path, null=True, blank=True)
 	bvals_file = models.FileField(upload_to=get_bvals_file_path, null=True, blank=True)
 	bvecs_file = models.FileField(upload_to=get_bvecs_file_path, null=True, blank=True)
+	STATE_CHOICES = (
+		('participant', 'Participant analysis'),
+		('group', 'Group analysis'),
+		('status', 'Job status'),
+		('kill', 'Kill jobs')
+	)
+	state = models.CharField(max_length=20, choices=STATE_CHOICES)
+	bucket = models.CharField(blank=True)
+	bidsdir = models.CharField(blank=True)
+	jobdir = models.CharField(blank=True)
+	creds_file = models.FileField(upload_to=get_creds_file_path, null=True, blank=True)
+	datasetname = models.CharField(blank=True)
+	MOD_CHOICES = (
+		('func', 'Functional'),
+		("dwi", 'DWI')
+	)
+	modality = models.CharField(max_length=20, choices=MOD_CHOICES)
 
 	def __eq__(self, other):
 		if isinstance(other, self.__class__):
