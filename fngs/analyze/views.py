@@ -41,7 +41,7 @@ def create_dataset(request):
 				return render(request, 'analyze/create_dataset.html', context)
 		dataset = form.save(commit=False)
 		dataset.output_url = str(settings.OUTPUT_DIR + dataset.dataset_id)
-		mgu().execute_cmd("mkdir -p " + str(dataset.output_url))
+		mgu.execute_cmd("mkdir -p " + str(dataset.output_url))
 		dataset.save()
 		return render(request, 'analyze/dataset.html', {'dataset': dataset})
 	context = {
@@ -87,6 +87,7 @@ def create_subject(request, dataset_id):
 		subject.dti_file = request.FILES['dti_file']
 		subject.bvals_file = request.FILES['bvals_file']
 		subject.bvecs_file = request.FILES['bvecs_file']
+		subject.creds_file = request.FILES['creds_file']
 		subject.save()
 		return render(request, 'analyze/dataset.html', {'dataset': dataset})
 	context = {
@@ -112,19 +113,20 @@ def analysis(dataset_id, dataset, sub_id, output_dir):
 	#ndmg_bids_cmd = "ndmg_bids " + ndmg_outdir + "/graphs/ " + ndmg_outdir + "/qc group"
 	#mgu().execute_cmd(ndmg_bids_cmd)
 
-	fngs_pipeline(subject.func_scan.url, subject.struct_scan.url,
-				   settings.AT_FOLDER + '/atlas/MNI152_T1-'+res+'.nii.gz', settings.AT_FOLDER + '/atlas/MNI152_T1-'+res+'_brain.nii.gz',
-				   settings.AT_FOLDER + '/mask/MNI152_T1-'+res+'_brain_mask.nii.gz', settings.AT_FOLDER + '/mask/HarvOx_lv_thr25-'+res+'.nii.gz', 
-				   [settings.AT_FOLDER + '/label/desikan-'+res+'.nii.gz'], output_dir, stc=subject.slice_timing, fmt='graphml')
+	#fngs_pipeline(subject.func_scan.url, subject.struct_scan.url,
+	#			   settings.AT_FOLDER + '/atlas/MNI152_T1-'+res+'.nii.gz', settings.AT_FOLDER + '/atlas/MNI152_T1-'+res+'_brain.nii.gz',
+	#			   settings.AT_FOLDER + '/mask/MNI152_T1-'+res+'_brain_mask.nii.gz', settings.AT_FOLDER + '/mask/HarvOx_lv_thr25-'+res+'.nii.gz', 
+	#			   [settings.AT_FOLDER + '/label/desikan-'+res+'.nii.gz'], output_dir, stc=subject.slice_timing, fmt='graphml')
 
-
+	cmd = "ndmg_cloud " + subject.state + " --bucket " + subject.bucket + " --bidsdir " + subject.bidsdir + " --credentials " + subject.creds_file.url + " --modality " + subject.modality + " --stc " + subject.slice_timing
+	os.system(cmd)
 
 	wd = os.getcwd()
 	# go to where the subject is
 	os.chdir(dataset.output_url)
 	sub_folder = re.split('/', subject.output_url)[-1]
 
-	mgu().execute_cmd('zip -r ' + str(sub_folder) + ".zip *")
+	mgu.execute_cmd('zip -r ' + str(sub_folder) + ".zip *")
 	# change directory back
 	os.chdir(wd)
 	# and update the subject
@@ -136,7 +138,7 @@ def analyze_subject(request, dataset_id, sub_id):
 	try:
 		# update subject save location
 		if subject.output_url is not None:
-			mgu().execute_cmd("rm -rf " + subject.output_url)
+			mgu.execute_cmd("rm -rf " + subject.output_url)
 		subject.output_url = None
 		subject.save()
 		date = time.strftime("%d-%m-%Y")
@@ -170,13 +172,13 @@ def delete_subject(request, dataset_id, sub_id):
 	dataset = get_object_or_404(Dataset, dataset_id=dataset_id)
 	subject = get_object_or_404(Subject, dataset=dataset, sub_id=sub_id)
 	# clear all traces of the subject from our storage system
-	mgu().execute_cmd("rm -rf " + subject.func_scan.url)
-	mgu().execute_cmd("rm -rf " + subject.struct_scan.url)
-	mgu().execute_cmd("rm -rf " + subject.dti_file.url)
-	mgu().execute_cmd("rm -rf " + subject.bvals_file.url)
-	mgu().execute_cmd("rm -rf " + subject.bvecs_file.url)
+	mgu.execute_cmd("rm -rf " + subject.func_scan.url)
+	mgu.execute_cmd("rm -rf " + subject.struct_scan.url)
+	mgu.execute_cmd("rm -rf " + subject.dti_file.url)
+	mgu.execute_cmd("rm -rf " + subject.bvals_file.url)
+	mgu.execute_cmd("rm -rf " + subject.bvecs_file.url)
 	if subject.output_url is not None:
-		mgu().execute_cmd("rm -rf " + subject.output_url)
+		mgu.execute_cmd("rm -rf " + subject.output_url)
 	subject.delete()
 	datasets = Dataset.objects.all()
 	return render(request, 'analyze/dataset.html', {'dataset': dataset})
