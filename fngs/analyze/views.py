@@ -3,8 +3,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from .models import Dataset, Subject
-from .forms import DatasetForm, SubjectForm
+from .models import Submission
+from .forms import SubmissionForm
 from ndmg.scripts.ndmg_func_pipeline import ndmg_func_pipeline as fngs_pipeline
 from ndmg.scripts.ndmg_dwi_pipeline import ndmg_dwi_pipeline as ndmg_pipeline
 from django.conf import settings
