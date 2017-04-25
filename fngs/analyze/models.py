@@ -77,11 +77,11 @@ class Subject(models.Model):
 		('kill', 'Kill jobs')
 	)
 	state = models.CharField(max_length=20, choices=STATE_CHOICES)
-	bucket = models.CharField(blank=True)
-	bidsdir = models.CharField(blank=True)
-	jobdir = models.CharField(blank=True)
+	bucket = models.CharField(max_length=100, blank=True)
+	bidsdir = models.CharField(max_length=100, blank=True)
+	jobdir = models.CharField(max_length=100, blank=True)
 	creds_file = models.FileField(upload_to=get_creds_file_path, null=True, blank=True)
-	datasetname = models.CharField(blank=True)
+	datasetname = models.CharField(max_length=100, blank=True)
 	MOD_CHOICES = (
 		('func', 'Functional'),
 		("dwi", 'DWI')
