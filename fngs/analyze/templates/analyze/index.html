@@ -5,23 +5,14 @@
         <div class="box">
             <div class="col-lg-12">
                 <hr>
-                <h1 class="intro-text text-center">Upload Data</h1>
+                <h1 class="intro-text text-center">Submit Job</h1>
                 <hr>
                 <hr class="visible-xs">
-                {% if datasets %}
-                <ul>
-                    {% for dataset in datasets %}
-                    <li><a href="{% url 'analyze:dataset' dataset.dataset_id %}">{{ dataset.dataset_id }}</a></li>
-                    {% endfor %}                    
-                </ul>
-                {% else %}
-                <h3>No Datasets Available for Public Viewing.</h3>
-                {% endif %}
-                <form class="form-horizontal" action="{% url 'analyze:dataset-add' %}" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" action="{% url 'analyze:job-submit' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class = "form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="delete" class="btn btn-success">Add Dataset</button>
+                            <button type="delete" class="btn btn-success">Submit Job</button>
                         </div>
                     </div>         
                 </form>
