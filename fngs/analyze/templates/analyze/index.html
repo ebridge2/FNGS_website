@@ -9,9 +9,9 @@
                 <hr>
                 <hr class="visible-xs">
                 {% if messages %}
-                <ul>
+                <ul style="list-style: none;">
                     {% for message in messages %}
-                    <li><a>{{ message }}</a></li>    
+                    <li>{{ message }}</li>  
                     {% endfor %}
                 </ul>
                 {% endif %}
