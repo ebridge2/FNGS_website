@@ -8,6 +8,14 @@
                 <h1 class="intro-text text-center">Submit Job</h1>
                 <hr>
                 <hr class="visible-xs">
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li><a>{{ message }}</a></li>    
+                    {% endfor %}
+                </ul>
+                <hr>
+                <hr class="visible-xs">
                 <form class="form-horizontal" action="{% url 'analyze:job-submit' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class = "form-group">
