@@ -14,6 +14,7 @@
                     <li><a>{{ message }}</a></li>    
                     {% endfor %}
                 </ul>
+                {% endif %}
                 <hr>
                 <hr class="visible-xs">
                 <form class="form-horizontal" action="{% url 'analyze:job-submit' %}" method="post" enctype="multipart/form-data">
