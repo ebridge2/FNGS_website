@@ -29,7 +29,11 @@ def submit_job(request):
 		p = Process(target=submitstuff, args=(submission,))
 		p.daemon=True
 		p.start()
-		return render(request, 'analyze/index.html')
+		messages = [str(submission.state)]
+		context = {
+			"messages": messages
+		}
+		return render(request, 'analyze/index.html', context)
 	context = {
 		"form": form,
 	}
