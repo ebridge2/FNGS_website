@@ -26,7 +26,7 @@ def submit_job(request):
 		submission = form.save(commit=False)
 		submission.creds_file = request.FILES['creds_file']
 		submission.save()
-		p = Process(target=submitstuff, args=(submission))
+		p = Process(target=submitstuff, args=(submission,))
 		p.daemon=True
 		p.start()
 		return render(request, 'analyze/index.html')
