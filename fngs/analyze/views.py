@@ -51,5 +51,5 @@ def submitstuff(submission, logfile):
 		cmd = "ndmg_cloud status --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url
 	if submission.state == 'kill':
 		cmd = "ndmg_cloud kill --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url
-	cmd = cmd + " > " + logfile
+	cmd = cmd + " >&! " + logfile
 	os.system(cmd)
