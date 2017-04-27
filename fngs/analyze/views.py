@@ -31,9 +31,8 @@ def submit_job(request):
 		p.daemon=True
 		p.start()
 		p.join()
-		data = open(logfile, 'r').read()
+		messages =  = open(logfile, 'r').readlines()
 		os.system("rm " + logfile)
-		messages = [str(data)]
 		context = {
 			"messages": messages
 		}
