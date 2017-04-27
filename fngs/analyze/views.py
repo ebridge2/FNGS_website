@@ -29,6 +29,7 @@ def submit_job(request):
 		p = Process(target=submitstuff, args=(submission,))
 		p.daemon=True
 		p.start()
+		p.join()
 		messages = [str(submission.state)]
 		context = {
 			"messages": messages
