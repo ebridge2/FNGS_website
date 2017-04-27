@@ -26,11 +26,14 @@ def submit_job(request):
 		submission = form.save(commit=False)
 		submission.creds_file = request.FILES['creds_file']
 		submission.save()
-		p = Process(target=submitstuff, args=(submission,))
+		logfile = submission.jobdir + "log.txt"
+		p = Process(target=submitstuff, args=(submission, logfile))
 		p.daemon=True
 		p.start()
 		p.join()
-		messages = [str(submission.state)]
+		data = open(logfile, 'r').read()
+		os.system("rm " + logfile)
+		messages = [str(data)]
 		context = {
 			"messages": messages
 		}
@@ -40,7 +43,7 @@ def submit_job(request):
 	}
 	return render(request, 'analyze/create_submission.html', context)
 
-def submitstuff(submission):
+def submitstuff(submission, logfile):
 	if submission.state == 'participant':
 		cmd = "ndmg_cloud participant --bucket " + submission.bucket + " --bidsdir " + submission.bidsdir + " --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url + " --modality " + submission.modality + " --stc " + submission.slice_timing
 	if submission.state == 'group':
@@ -49,4 +52,5 @@ def submitstuff(submission):
 		cmd = "ndmg_cloud status --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url
 	if submission.state == 'kill':
 		cmd = "ndmg_cloud kill --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url
+	cmd = cmd + " > " + logfile
 	os.system(cmd)
