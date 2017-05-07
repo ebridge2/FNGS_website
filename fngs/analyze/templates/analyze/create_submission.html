@@ -28,6 +28,13 @@
 							</div>
 						</div>
 					</div>
+					{% if messages %}
+                			<ul style="list-style: none;">
+                    			{% for message in messages %}
+                    			<li>{{ message }}</li>  
+                    			{% endfor %}
+                			</ul>
+                			{% endif %}												     
 				</div>
 			</div>
 		</div>
