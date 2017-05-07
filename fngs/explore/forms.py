@@ -1,12 +1,12 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Submission
+from .models import QuerySubmission
 from django.utils.translation import ugettext_lazy as _
 
 
-class SubmissionForm(forms.ModelForm):
+class QuerySubmissionForm(forms.ModelForm):
 	class Meta:
-		model = Submission
+		model = QuerySubmission
 		fields = ['state', 'bucket', 'bidsdir', 'jobdir', 'creds_file', 'datasetname', 'modality', 'slice_timing']
 		labels={
 			'state':_('Analysis Level'),
