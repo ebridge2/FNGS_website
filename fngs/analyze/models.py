@@ -16,7 +16,7 @@ class Submission(models.Model):
 		('participant', 'Participant analysis'),
 		('group', 'Group analysis')
 	)
-	state = models.CharField(max_length=20, choices=STATE_CHOICES)
+	state = models.CharField(max_length=20, choices=STATE_CHOICES, default=None)
 	bucket = models.CharField(max_length=100, blank=True)
 	bidsdir = models.CharField(max_length=100, blank=True)
 	jobdir = models.CharField(max_length=100, blank=True)
@@ -26,14 +26,14 @@ class Submission(models.Model):
 		('func', 'Functional'),
 		("dwi", 'DWI')
 	)
-	modality = models.CharField(max_length=20, choices=MOD_CHOICES)
+	modality = models.CharField(max_length=20, choices=MOD_CHOICES, default=None)
 	STC_CHOICES = (
 		('None', 'None'),
 		('up', 'Bottom Up Acquisition (standard)'),
 		('down', 'Top Down Acquisition'),
 		("interleaved", 'Interleaved Acquisition')
 	)
-	slice_timing = models.CharField(max_length=20, choices=STC_CHOICES)
+	slice_timing = models.CharField(max_length=20, choices=STC_CHOICES, default=None)
 
 	def add_output_url(self, url):
 		output_url = models.TextField(url)
