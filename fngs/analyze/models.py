@@ -15,8 +15,6 @@ class Submission(models.Model):
 	STATE_CHOICES = (
 		('participant', 'Participant analysis'),
 		('group', 'Group analysis'),
-		('status', 'Job status'),
-		('kill', 'Kill jobs')
 	)
 	state = models.CharField(max_length=20, choices=STATE_CHOICES)
 	bucket = models.CharField(max_length=100, blank=True)
@@ -30,7 +28,7 @@ class Submission(models.Model):
 	)
 	modality = models.CharField(max_length=20, choices=MOD_CHOICES)
 	STC_CHOICES = (
-		(None, 'None'),
+		('None', 'None'),
 		('up', 'Bottom Up Acquisition (standard)'),
 		('down', 'Top Down Acquisition'),
 		("interleaved", 'Interleaved Acquisition')
