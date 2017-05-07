@@ -44,10 +44,6 @@ def submit_job(request):
 	return render(request, 'explore/create_submission.html', context)
 
 def submitstuff(submission, logfile):
-	if submission.state == 'participant':
-		cmd = "ndmg_cloud participant --bucket " + submission.bucket + " --bidsdir " + submission.bidsdir + " --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url + " --modality " + submission.modality + " --stc " + submission.slice_timing
-	if submission.state == 'group':
-		cmd = "ndmg_cloud group --bucket " + submission.bucket + " --bidsdir " + submission.bidsdir + " --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url + " --modality " + submission.modality + " --dataset " + submission.datasetname
 	if submission.state == 'status':
 		cmd = "ndmg_cloud status --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url
 	if submission.state == 'kill':
