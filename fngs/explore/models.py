@@ -16,9 +16,9 @@ class QuerySubmission(models.Model):
 		('status', 'Job status'),
 		('kill', 'Kill jobs')
 	)
-	state = models.CharField(max_length=20, choices=STATE_CHOICES)
-	jobdir = models.CharField(max_length=100, blank=True)
-	creds_file = models.FileField(upload_to=get_creds_file_path, null=True, blank=True)
+	state = models.CharField(max_length=20, choices=STATE_CHOICES, default=None, blank=False)
+	jobdir = models.CharField(max_length=100, blank=False)
+	creds_file = models.FileField(upload_to=get_creds_file_path, null=True, blank=False)
 
 	def add_output_url(self, url):
 		output_url = models.TextField(url)
