@@ -14,7 +14,7 @@ class Submission(models.Model):
 	output_url = models.CharField(max_length=200, null=True, blank=True)
 	STATE_CHOICES = (
 		('participant', 'Participant analysis'),
-		('group', 'Group analysis'),
+		('group', 'Group analysis')
 	)
 	state = models.CharField(max_length=20, choices=STATE_CHOICES)
 	bucket = models.CharField(max_length=100, blank=True)
