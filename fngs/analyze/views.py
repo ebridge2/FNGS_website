@@ -34,9 +34,10 @@ def submit_job(request):
 		messages = open(logfile, 'r').readlines()
 		os.system("rm " + logfile)
 		context = {
-			"messages": messages
+			"messages": messages,
+			"form": form,
 		}
-		return render(request, 'analyze/index.html', context)
+		return render(request, 'analyze/create_submission.html', context)
 	context = {
 		"form": form,
 	}
