@@ -11,7 +11,7 @@
 						<div class="panel-body">
 							<div class="row">
 	        					<div class="box">
-									<h3>Submit a new job</h3>
+									<h3>Query an existing job</h3>
 									<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
 										{% csrf_token %}
 										{% if error_message %}
@@ -20,7 +20,7 @@
 	        							{% include 'explore/form-template.html' %}
 										<div class = "form-group">
 											<div class="col-sm-offset-2 col-sm-10">
-												<button type="submit" class="btn btn-success">Submit Job</button>
+												<button type="submit" class="btn btn-success">Submit Query</button>
 											</div>
 										</div>
 									</form>
