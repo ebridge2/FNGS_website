@@ -1,0 +1,42 @@
+{% extends 'home/base.html' %}
+
+{% block body %}
+	<div class="container-fluid">
+
+		<div class="row">
+
+        	<div class="box">
+				<div class="col-sm-12 col-md-7">
+					<div class panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+	        					<div class="box">
+									<h3>Submit a new job</h3>
+									<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+										{% csrf_token %}
+										{% if error_message %}
+				                        	<p><strong>{{ error_message }}</strong></p>
+				                    	{% endif %}
+	        							{% include 'explore/form-template.html' %}
+										<div class = "form-group">
+											<div class="col-sm-offset-2 col-sm-10">
+												<button type="submit" class="btn btn-success">Submit Job</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% if messages %}
+                			<ul style="list-style: none;">
+                    			{% for message in messages %}
+                    			<li>{{ message }}</li>  
+                    			{% endfor %}
+                			</ul>
+                			{% endif %}												     
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
