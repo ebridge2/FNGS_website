@@ -19,7 +19,7 @@ class Submission(models.Model):
 	state = models.CharField(max_length=20, choices=STATE_CHOICES, default=None, blank=False)
 	bucket = models.CharField(max_length=100, blank=False)
 	bidsdir = models.CharField(max_length=100, blank=False)
-	jobdir = models.CharField(max_length=100, blank=True)
+	jobdir = models.CharField(max_length=100, blank=False)
 	creds_file = models.FileField(upload_to=get_creds_file_path, null=True, blank=False)
 	datasetname = models.CharField(max_length=100, blank=True)
 	MOD_CHOICES = (
