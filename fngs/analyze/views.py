@@ -26,7 +26,8 @@ def submit_job(request):
 	if form.is_valid():
 		submission = form.save(commit=False)
 		submission.creds_file = request.FILES['creds_file']
-		submission.data_file = request.FILES['data_file']
+		if submission.upload_data_or_not == "yes":
+			submission.data_file = request.FILES['data_file']
 		submission.save()
 		logfile = submission.jobdir + "log.txt"
 		p1 = Process(target=unzipstuff, args=(submission))
