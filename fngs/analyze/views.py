@@ -30,15 +30,15 @@ def submit_job(request):
 			submission.data_file = request.FILES['data_file']
 		submission.save()
 		logfile = submission.jobdir + "log.txt"
-		p1 = Process(target=unzipstuff, args=(submission))
+		p1 = Process(target=unzipstuff, args=(submission,))
 		p1.daemon=True
 		p1.start()
 		p1.join()
-		p2 = Process(target=uploadstuff, args=(submission))
+		p2 = Process(target=uploadstuff, args=(submission,))
 		p2.daemon=True
 		p2.start()
 		p2.join()
-		p3 = Process(target=deletestuff, args=(submission))
+		p3 = Process(target=deletestuff, args=(submission,))
 		p3.daemon=True
 		p3.start()
 		p3.join()
