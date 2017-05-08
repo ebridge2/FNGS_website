@@ -16,6 +16,7 @@ from threading import Thread
 from multiprocessing import Process
 import os
 import re
+import csv
 
 def index(request):
 	return render(request, 'analyze/index.html')
@@ -32,10 +33,18 @@ def submit_job(request):
 		p1.daemon=True
 		p1.start()
 		p1.join()
-		p2 = Process(target=submitstuff, args=(submission, logfile))
+		p2 = Process(target=uploadstuff, args=(submission))
 		p2.daemon=True
 		p2.start()
 		p2.join()
+		p3 = Process(target=deletestuff, args=(submission))
+		p3.daemon=True
+		p3.start()
+		p3.join()
+		p4 = Process(target=submitstuff, args=(submission, logfile))
+		p4.daemon=True
+		p4.start()
+		p4.join()
 		messages = open(logfile, 'r').readlines()
 		os.system("rm " + logfile)
 		context = {
@@ -49,12 +58,35 @@ def submit_job(request):
 	return render(request, 'analyze/create_submission.html', context)
 
 def unzipstuff(submission):
-	if submission.data_file is not "":
-		filename = submission.data_file[:-4]
+	if submission.upload_data_or_not == "yes":
+		filename = submission.data_file.name[:-4]
 		cmd = "mkdir " + filename
 		os.system(cmd)
-		cmd = "unzip " + submission.data_file + " -d " + filename
+		cmd = "unzip " + submission.data_file.url + " -d " + filename
 		os.system(cmd)
+		
+def uploadstuff(submission):
+	if submission.upload_data_or_not == "yes":
+		creds = submission.creds_file.url
+    		credfile = open(creds, 'rb')
+    		reader = csv.reader(credfile)
+    		rowcounter = 0
+    		for row in reader:
+        		if rowcounter == 1:
+            			public_access_key = str(row[0])
+            			secret_access_key = str(row[1])
+        		rowcounter = rowcounter + 1
+		os.environ['AWS_ACCESS_KEY_ID'] = public_access_key
+    		os.environ['AWS_SECRET_ACCESS_KEY'] = secret_access_key
+    		os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
+		cmd = "aws s3 sync " + submission.data_file.name[:-4] + " s3://" + submission.bucket
+		os.system(cmd)
+		
+def deletestuff(submission):
+	if submission.upload_data_or_not == "yes":
+		cmd = "rm -rf " + submission.data_file.name[:-4] + "/"
+		os.system(cmd)
+		submission.data_file.delete()
 
 def submitstuff(submission, logfile):
 	if submission.state == 'participant':
