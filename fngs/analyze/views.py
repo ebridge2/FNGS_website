@@ -50,7 +50,10 @@ def submit_job(request):
 
 def unzipstuff(submission):
 	if submission.data_file is not "":
-		cmd = "unzip " + submission.data_file
+		filename = submission.data_file[:-4]
+		cmd = "mkdir " + filename
+		os.system(cmd)
+		cmd = "unzip " + submission.data_file + " -d " + filename
 		os.system(cmd)
 
 def submitstuff(submission, logfile):
