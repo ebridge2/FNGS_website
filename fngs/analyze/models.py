@@ -11,7 +11,7 @@ def get_creds_file_path(instance, filename):
 	return os.path.join("/".join(["creds", filename]))
 
 def get_data_file_path(instance, filename):
-	return os.path.join("/".join(["uploaded_data", filename]))
+	return str(filename)
 
 class Submission(models.Model):
 	output_url = models.CharField(max_length=200, null=True, blank=True)
