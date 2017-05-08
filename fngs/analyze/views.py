@@ -28,10 +28,14 @@ def submit_job(request):
 		submission.data_file = request.FILES['data_file']
 		submission.save()
 		logfile = submission.jobdir + "log.txt"
-		p = Process(target=submitstuff, args=(submission, logfile))
-		p.daemon=True
-		p.start()
-		p.join()
+		p1 = Process(target=unzipstuff, args=(submission))
+		p1.daemon=True
+		p1.start()
+		p1.join()
+		p2 = Process(target=submitstuff, args=(submission, logfile))
+		p2.daemon=True
+		p2.start()
+		p2.join()
 		messages = open(logfile, 'r').readlines()
 		os.system("rm " + logfile)
 		context = {
@@ -44,13 +48,15 @@ def submit_job(request):
 	}
 	return render(request, 'analyze/create_submission.html', context)
 
+def unzipstuff(submission):
+	if submission.data_file is not "":
+		cmd = "unzip " + submission.data_file
+		os.system(cmd)
+
 def submitstuff(submission, logfile):
 	if submission.state == 'participant':
 		cmd = "ndmg_cloud participant --bucket " + submission.bucket + " --bidsdir " + submission.bidsdir + " --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url + " --modality " + submission.modality + " --stc " + submission.slice_timing
 	if submission.state == 'group':
 		cmd = "ndmg_cloud group --bucket " + submission.bucket + " --bidsdir " + submission.bidsdir + " --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url + " --modality " + submission.modality + " --dataset " + submission.datasetname
-	
-	if submission.data_file is not "":
-		cmd = cmd + " --datafile " + submission.data_file
 	cmd = cmd + " > " + logfile
 	os.system(cmd)
