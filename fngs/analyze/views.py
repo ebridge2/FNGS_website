@@ -25,6 +25,7 @@ def submit_job(request):
 	if form.is_valid():
 		submission = form.save(commit=False)
 		submission.creds_file = request.FILES['creds_file']
+		submission.data_file = request.FILES['data_file']
 		submission.save()
 		logfile = submission.jobdir + "log.txt"
 		p = Process(target=submitstuff, args=(submission, logfile))
@@ -45,8 +46,8 @@ def submit_job(request):
 
 def submitstuff(submission, logfile):
 	if submission.state == 'participant':
-		cmd = "ndmg_cloud participant --bucket " + submission.bucket + " --bidsdir " + submission.bidsdir + " --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url + " --modality " + submission.modality + " --stc " + submission.slice_timing
+		cmd = "ndmg_cloud participant --bucket " + submission.bucket + " --bidsdir " + submission.bidsdir + " --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url + " --modality " + submission.modality + " --stc " + submission.slice_timing + " --datafile " + submission.data_file
 	if submission.state == 'group':
-		cmd = "ndmg_cloud group --bucket " + submission.bucket + " --bidsdir " + submission.bidsdir + " --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url + " --modality " + submission.modality + " --dataset " + submission.datasetname
+		cmd = "ndmg_cloud group --bucket " + submission.bucket + " --bidsdir " + submission.bidsdir + " --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url + " --modality " + submission.modality + " --dataset " + submission.datasetname + " --datafile " + submission.data_file
 	cmd = cmd + " > " + logfile
 	os.system(cmd)
