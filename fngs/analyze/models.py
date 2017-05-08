@@ -10,6 +10,9 @@ import uuid
 def get_creds_file_path(instance, filename):
 	return os.path.join("/".join(["creds", filename]))
 
+def get_data_file_path(instance, filename):
+	return os.path.join("/".join(["uploaded_data", filename]))
+
 class Submission(models.Model):
 	output_url = models.CharField(max_length=200, null=True, blank=True)
 	STATE_CHOICES = (
@@ -21,6 +24,7 @@ class Submission(models.Model):
 	bidsdir = models.CharField(max_length=100, blank=False)
 	jobdir = models.CharField(max_length=100, blank=False)
 	creds_file = models.FileField(upload_to=get_creds_file_path, null=True, blank=False)
+	data_file = models.FileField(upload_to=get_data_file_path, null=True, blank=True)
 	datasetname = models.CharField(max_length=100, blank=True)
 	MOD_CHOICES = (
 		('func', 'Functional'),
