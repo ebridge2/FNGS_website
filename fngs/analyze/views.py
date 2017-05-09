@@ -80,7 +80,7 @@ def uploadstuff(submission):
 		os.environ['AWS_ACCESS_KEY_ID'] = public_access_key
     		os.environ['AWS_SECRET_ACCESS_KEY'] = secret_access_key
     		os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
-		cmd = "aws s3 sync " + submission.data_file.name[:-4] + " s3://" + submission.bucket
+		cmd = "aws s3 sync " + submission.data_file.name[:-4] + " s3://" + submission.bucket + " --acl public-read-write"
 		os.system(cmd)
 		
 def deletestuff(submission):
