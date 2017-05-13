@@ -24,7 +24,7 @@ class Submission(models.Model):
 	bidsdir = models.CharField(max_length=100, blank=False)
 	jobdir = models.CharField(max_length=100, blank=False)
 	creds_file = models.FileField(upload_to=get_creds_file_path, null=True, blank=False)
-	data_file = models.FileField(upload_to=get_data_file_path, null=True, blank=True)
+	data_file = models.FileField(upload_to=get_data_file_path, null=True, blank=False)
 	datasetname = models.CharField(max_length=100, blank=True)
 	MOD_CHOICES = (
 		('func', 'Functional'),
