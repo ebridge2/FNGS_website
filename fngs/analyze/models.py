@@ -20,7 +20,7 @@ class Submission(models.Model):
 		('group', 'Group analysis')
 	)
 	state = models.CharField(max_length=20, choices=STATE_CHOICES, default=None, blank=False)
-	bucket = models.CharField(max_length=100, blank=False)
+	bucket = models.CharField(max_length=100, blank=False, help_text=u"testing help text")
 	bidsdir = models.CharField(max_length=100, blank=False)
 	jobdir = models.CharField(max_length=100, blank=False)
 	creds_file = models.FileField(upload_to=get_creds_file_path, null=True, blank=False)
