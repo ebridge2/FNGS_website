@@ -71,6 +71,13 @@ hr {
     font-size: 4em;
 }
 
+.center {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;  
+}
+
 .tagline-divider {
     margin: 15px auto 3px;
     max-width: 250px;
