@@ -19,9 +19,9 @@ class Submission(models.Model):
 		('participant', 'Participant analysis'),
 		('group', 'Group analysis')
 	)
-	state = models.CharField(max_length=20, choices=STATE_CHOICES, default=None, blank=False)
-	bucket = models.CharField(max_length=100, blank=False, default="fngstestbucket")
-	bidsdir = models.CharField(max_length=100, blank=False, default="DC1test")
+	state = models.CharField(max_length=20, choices=STATE_CHOICES, default=None, blank=False, disabled=True)
+	bucket = models.CharField(max_length=100, blank=False, default="fngstestbucket", disabled=True)
+	bidsdir = models.CharField(max_length=100, blank=False, default="DC1test", disabled=True)
 	jobdir = models.CharField(max_length=100, blank=False)
 	creds_file = models.FileField(upload_to=get_creds_file_path, null=True, blank=False)
 	data_file = models.FileField(upload_to=get_data_file_path, null=True, blank=False)
@@ -30,19 +30,19 @@ class Submission(models.Model):
 		('func', 'Functional'),
 		("dwi", 'DWI')
 	)
-	modality = models.CharField(max_length=20, choices=MOD_CHOICES, default=None, blank=False)
+	modality = models.CharField(max_length=20, choices=MOD_CHOICES, default=None, blank=False, disabled=True)
 	STC_CHOICES = (
 		('None', 'None'),
 		('up', 'Bottom Up Acquisition (standard)'),
 		('down', 'Top Down Acquisition'),
 		("interleaved", 'Interleaved Acquisition')
 	)
-	slice_timing = models.CharField(max_length=20, choices=STC_CHOICES, default=None, blank=False)
+	slice_timing = models.CharField(max_length=20, choices=STC_CHOICES, default=None, blank=False, disabled=True)
 	UPLOAD_CHOICES = (
 		('yes', 'Yes'),
 		('no', 'No')
 	)
-	upload_data_or_not = models.CharField(max_length=20, choices=UPLOAD_CHOICES, default=None, blank=False)
+	upload_data_or_not = models.CharField(max_length=20, choices=UPLOAD_CHOICES, default=None, blank=False, disabled=True)
 
 	def add_output_url(self, url):
 		output_url = models.TextField(url)
