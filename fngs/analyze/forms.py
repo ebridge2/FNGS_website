@@ -11,7 +11,7 @@ class SubmissionForm(forms.ModelForm):
 		labels={
 			'state':_('Analysis Level'),
 			'bucket':_('S3 Bucket Name'),
-			'bidsdir':_('S3 Bucket BIDS Directory'),
+			'bidsdir':_('BIDS Directory'),
 			'jobdir':_('Unique Token'),
 			'creds_file':_('AWS Credentials File'),
 			'datasetname':_('Dataset Name'),
