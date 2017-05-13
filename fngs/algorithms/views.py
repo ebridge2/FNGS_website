@@ -53,6 +53,7 @@ def submit_job(request):
 			"form": form,
 		}
 		return render(request, 'algorithms/create_submission.html', context)
+	form.fields['bucket'].widget.attrs['readonly'] = True
 	context = {
 		"form": form,
 	}
