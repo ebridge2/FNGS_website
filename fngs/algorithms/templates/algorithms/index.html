@@ -1,24 +1,31 @@
 {% extends 'home/base.html' %}
-{% load static %}
 
 {% block body %}
     <div class="row">
         <div class="box">
             <div class="col-lg-12">
-                <hr class="visible-xs"> 
-                <p>The most recent version of the FNGS Workflow:</p>
-                <img src="{% static 'img/fngs_wf.jpeg' %}" alt="FNGS Workflow" height="700" width="1000">
-                <h2>Internal Algorithms</h2>
-                <p><a href="https://github.com/NeuroDataDesign/fngs/blob/gh-pages/reveal/pdfs/nuisance_correction.pdf">Nuisance Correction</a></p>
-                <p>ROI Timeseries Extraction</p>
-                <p>Voxel Timeseries Extraction</p>
-                <h2>External Algorithms</h2>
-                <p><a href="http://poc.vl-e.nl/distribution/manual/fsl-3.2/slicetimer/index.html">Slicetimer</a></p>
-                <p><a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/MCFLIRT">MCFLIRT</a></p>
-                <p><a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FLIRT">FLIRT</a></p>
-                <p><a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FNIRT">FNIRT</a></p>
-
-            </di>
+                <hr>
+                <h1 class="intro-text text-center">Submit Job</h1>
+                <hr>
+                <hr class="visible-xs">
+                {% if messages %}
+                <ul style="list-style: none;">
+                    {% for message in messages %}
+                    <li>{{ message }}</li>  
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <hr>
+                <hr class="visible-xs">
+                <form class="form-horizontal" action="{% url 'analyze:job-submit' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class = "form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="delete" class="btn btn-success">Submit Job</button>
+                        </div>
+                    </div>         
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}
