@@ -14,8 +14,6 @@ RUN pip install numpy==1.12.1 networkx>=1.11 nibabel>=2.0 dipy>=0.1 scipy boto3 
 
 RUN git clone -b eric-dev-gkiar-fmri https://github.com/neurodata/ndmg.git /ndmg && cd /ndmg && python setup.py install 
 
-# Get atlases
-RUN cd /FNGS_server && wget http://openconnecto.me/mrdata/share/atlases/fmri_atlases.zip && unzip fmri_atlases.zip
 RUN mkdir /ndmg_atlases && cd /ndmg_atlases && wget -rnH --cut-dirs=3 --no-parent -P /ndmg_atlases http://openconnecto.me/mrdata/share/eric_atlases/fmri_atlases.zip && unzip fmri_atlases.zip
 
 # copy over the entrypoint script
