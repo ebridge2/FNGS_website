@@ -53,7 +53,12 @@ def submit_job(request):
 			"form": form,
 		}
 		return render(request, 'algorithms/create_submission.html', context)
+	form.fields['state'].widget.attrs['readonly'] = True
 	form.fields['bucket'].widget.attrs['readonly'] = True
+	form.fields['bidsdir'].widget.attrs['readonly'] = True
+	form.fields['modality'].widget.attrs['readonly'] = True
+	form.fields['slice_timing'].widget.attrs['readonly'] = True
+	form.fields['upload_data_or_not'].widget.attrs['readonly'] = True
 	context = {
 		"form": form,
 	}
