@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'analyze.apps.AnalyzeConfig',
     'explore.apps.ExploreConfig',
     'algorithms.apps.AlgorithmsConfig',
+    'docs',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -140,3 +141,6 @@ MEDIA_URL = os.path.join(SERVER_DIR, 'input_data/')
 OUTPUT_DIR = os.path.join(SERVER_DIR, 'output_data/')
 DATA_FOLDER = os.path.join(SERVER_DIR, "datasets")
 AT_FOLDER = os.path.join(SERVER_DIR, "atlases")
+
+print(BASE_DIR)
+DOCS_ROOT = os.path.join(BASE_DIR, 'docs/html')

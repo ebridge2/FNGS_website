@@ -23,7 +23,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^analyze/', include('analyze.urls')),
     url(r'^explore/', include('explore.urls')),
-    url(r'^algorithms/', include('algorithms.urls'))
+    url(r'^algorithms/', include('algorithms.urls')),
+    url(r'^docs/', include('docs.urls'))
+
 ]
 
 if settings.DEBUG:
