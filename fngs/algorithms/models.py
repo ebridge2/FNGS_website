@@ -37,7 +37,7 @@ class Submission(models.Model):
 		('down', 'Top Down Acquisition'),
 		("interleaved", 'Interleaved Acquisition')
 	)
-	slice_timing = models.CharField(max_length=20, choices=STC_CHOICES, default=None, initial="interleaved", blank=False)
+	slice_timing = models.CharField(max_length=20, choices=STC_CHOICES, default="interleaved", blank=False)
 	UPLOAD_CHOICES = (
 		('yes', 'Yes'),
 		('no', 'No')
