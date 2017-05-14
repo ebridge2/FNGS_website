@@ -65,7 +65,7 @@ def submit_job(request):
 	return render(request, 'algorithms/create_submission.html', context)
 
 def unzipstuff(submission):
-	if submission.upload_data_or_not == "yes":
+	if submission.upload_data_or_not == "Yes":
 		filename = submission.data_file.name[:-4]
 		cmd = "mkdir " + filename
 		os.system(cmd)
@@ -73,7 +73,7 @@ def unzipstuff(submission):
 		os.system(cmd)
 		
 def uploadstuff(submission):
-	if submission.upload_data_or_not == "yes":
+	if submission.upload_data_or_not == "Yes":
 		creds = submission.creds_file.url
     		credfile = open(creds, 'rb')
     		reader = csv.reader(credfile)
@@ -90,14 +90,14 @@ def uploadstuff(submission):
 		os.system(cmd)
 		
 def deletestuff(submission):
-	if submission.upload_data_or_not == "yes":
+	if submission.upload_data_or_not == "Yes":
 		cmd = "rm -rf " + submission.data_file.name[:-4] + "/"
 		os.system(cmd)
 		submission.data_file.delete()
 
 def submitstuff(submission, logfile):
-	if submission.state == 'participant':
-		cmd = "ndmg_cloud participant --bucket " + submission.bucket + " --bidsdir " + submission.bidsdir + " --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url + " --modality " + submission.modality + " --stc " + submission.slice_timing
+	if submission.state == 'Participant analysis':
+		cmd = "ndmg_cloud participant --bucket " + submission.bucket + " --bidsdir " + submission.bidsdir + " --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url + " --modality func --stc interleaved"
 	if submission.state == 'group':
 		cmd = "ndmg_cloud group --bucket " + submission.bucket + " --bidsdir " + submission.bidsdir + " --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url + " --modality " + submission.modality + " --dataset " + submission.datasetname
 	cmd = cmd + " > " + logfile
