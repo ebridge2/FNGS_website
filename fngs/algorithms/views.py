@@ -48,8 +48,18 @@ def submit_job(request):
 		p4.join()
 		messages = open(logfile, 'r').readlines()
 		os.system("rm " + logfile)
+		new_messages = []
+		counter = 0
+		for i in range(len(messages)):
+			if messages[i][0:18] == "... Submitting job":
+				counter = counter + 1
+				new_messages.append(messages[i])
+				if i == (len(messages) - 1):
+					counter = 0
+					new_messages = []
+		new_messages.append("Submitted " + str(counter) + " jobs successfully!")
 		context = {
-			"messages": messages,
+			"messages": new_messages,
 			"form": form,
 		}
 		return render(request, 'algorithms/create_submission.html', context)
