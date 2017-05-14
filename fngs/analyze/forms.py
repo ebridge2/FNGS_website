@@ -26,7 +26,7 @@ class SubmissionForm(forms.ModelForm):
 			'bidsdir':_("Path on the S3 bucket where data lives (root folder of BIDS spec'd data)"),
 			'jobdir':_('Your personalized unique identifier that you can use later for queries'),
 			'creds_file':_('CSV file containing your user credentials for AWS services'),
-			'datasetname':_('Dataset name (only for group analysis)'),
+			'datasetname':_('Name of your dataset (only for group analysis)'),
 			'modality':_('Modality of the data'),
 			'slice_timing':_('The method in which the data slices were acquired'),
 			'data_file':_('Local data that you want to uploaded to the specified S3 bucket before running analysis (zipped at one level above BIDS root)'),
