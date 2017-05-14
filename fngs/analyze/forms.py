@@ -9,8 +9,8 @@ class SubmissionForm(forms.ModelForm):
 		model = Submission
 		fields = ['state', 'bucket', 'bidsdir', 'jobdir', 'creds_file', 'datasetname', 'modality', 'slice_timing', 'data_file', 'upload_data_or_not']
 		labels={
-			'state':_('Analysis Level'),
-			'bucket':_('S3 Bucket Name'),
+			'state':_('Analysis Level '),
+			'bucket':_('S3 Bucket Name '),
 			'bidsdir':_('BIDS Directory'),
 			'jobdir':_('Unique Token'),
 			'creds_file':_('AWS Credentials File'),
