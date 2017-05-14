@@ -42,7 +42,7 @@ class Submission(models.Model):
 		('yes', 'Yes'),
 		('no', 'No')
 	)
-	upload_data_or_not = models.CharField(max_length=20, choices=UPLOAD_CHOICES, default=None, blank=False)
+	upload_data_or_not = models.CharField(max_length=20, choices=UPLOAD_CHOICES, default='no', blank=False)
 
 	def add_output_url(self, url):
 		output_url = models.TextField(url)
