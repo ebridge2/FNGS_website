@@ -57,7 +57,7 @@ def submit_job(request):
 				if i == (len(messages) - 1):
 					counter = 0
 					new_messages = []
-		new_messages.append("Submitted " + counter + " jobs successfully!")
+		new_messages.append("Submitted " + str(counter) + " jobs successfully!")
 		context = {
 			"messages": new_messages,
 			"form": form,
