@@ -19,7 +19,7 @@ class Submission(models.Model):
 		('participant', 'Participant analysis'),
 		('group', 'Group analysis')
 	)
-	state = models.CharField(max_length=20, blank=False, default="Participant analysis")
+	state = models.CharField(max_length=40, blank=False, default="Participant analysis")
 	bucket = models.CharField(max_length=100, blank=False, default="fngstestbucket")
 	bidsdir = models.CharField(max_length=100, blank=False, default="DC1-demo")
 	jobdir = models.CharField(max_length=100, blank=False)
@@ -30,14 +30,14 @@ class Submission(models.Model):
 		('func', 'Functional'),
 		("dwi", 'DWI')
 	)
-	modality = models.CharField(max_length=20, blank=False, default="Functional")
+	modality = models.CharField(max_length=40, blank=False, default="Functional")
 	STC_CHOICES = (
 		('None', 'None'),
 		('up', 'Bottom Up Acquisition (standard)'),
 		('down', 'Top Down Acquisition'),
 		("interleaved", 'Interleaved Acquisition')
 	)
-	slice_timing = models.CharField(max_length=20, blank=False, default="Interleaved acquisition")
+	slice_timing = models.CharField(max_length=40, blank=False, default="Interleaved acquisition")
 	UPLOAD_CHOICES = (
 		('yes', 'Yes'),
 		('no', 'No')
