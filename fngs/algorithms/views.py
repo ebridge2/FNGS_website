@@ -26,7 +26,7 @@ def submit_job(request):
 	if form.is_valid():
 		submission = form.save(commit=False)
 		submission.creds_file = request.FILES['creds_file']
-		if submission.upload_data_or_not == "yes":
+		if submission.upload_data_or_not == "Yes":
 			submission.data_file = request.FILES['data_file']
 		submission.save()
 		logfile = submission.jobdir + "log.txt"
