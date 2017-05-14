@@ -16,10 +16,10 @@ RUN pip install --ignore-installed cython coveralls wget sklearn networkx multip
 RUN apt-get install python-dateutil
 
 
-RUN a=a git clone -b eric-dev-gkiar-fmri https://github.com/02agarwalt/ndmg.git /ndmg && cd /ndmg && python setup.py install
+RUN a=a git clone -b eric-dev-gkiar-fmri https://github.com/neurodata/ndmg.git /ndmg && cd /ndmg && python setup.py install
 
 # clone the website repo and make the location for the downloads
-RUN git clone https://github.com/02agarwalt/FNGS_website.git && mkdir /FNGS_server && mkdir /FNGS_server/input_data && mkdir /FNGS_server/output_data
+RUN git clone https://github.com/ebridge2/FNGS_website.git && mkdir /FNGS_server && mkdir /FNGS_server/input_data && mkdir /FNGS_server/output_data
 
 # download the website
 RUN cd /FNGS_website/fngs && python manage.py makemigrations analyze && python manage.py migrate && python manage.py migrate --run-syncdb
