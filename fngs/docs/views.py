@@ -15,4 +15,4 @@ def serve_docs(request, path, **kwargs):
 class DocsRootView(RedirectView):
     def get_redirect_url(self, **kwargs):
     	print(kwargs)
-        return reverse('docs_files', kwargs={'path': 'index.html'})
+        return reverse('docs:docfiles', kwargs={'path': 'index.html'})

@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'analyze.apps.AnalyzeConfig',
     'explore.apps.ExploreConfig',
     'algorithms.apps.AlgorithmsConfig',
-    'docs',
+    'docs.apps.DocsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
