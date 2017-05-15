@@ -14,7 +14,7 @@ class QuerySubmissionForm(forms.ModelForm):
 			'creds_file':_('AWS Credentials File')
 		}
 		help_texts={
-			'state':_('Level of analysis to perform'),
-			'jobdir':_('Unique token of jobs to kill or check status'),
-			'creds_file':_('File containing user credentials for AWS services')
+			'state':_('Type of query you wish to perform on your jobs'),
+			'jobdir':_('The personalized unique identifier that you used to submit the jobs originally'),
+			'creds_file':_('CSV file containing your user credentials for AWS services')
 		}
