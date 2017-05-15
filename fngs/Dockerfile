@@ -22,7 +22,9 @@ RUN a=a git clone -b eric-dev-gkiar-fmri https://github.com/neurodata/ndmg.git /
 RUN git clone https://github.com/ebridge2/FNGS_website.git && mkdir /FNGS_server && mkdir /FNGS_server/input_data && mkdir /FNGS_server/output_data
 
 # download the website
-RUN cd /FNGS_website/fngs && python manage.py makemigrations analyze && python manage.py migrate && python manage.py migrate --run-syncdb
+RUN python /FNGS_website/fngs/manage.py makemigrations analyze 
+RUN python /FNGS_website/fngs/manage.py migrate
+RUN python /FNGS_website/fngs/manage.py migrate --run-syncdb
 
 # Get atlases
 RUN cd /FNGS_server && wget http://openconnecto.me/mrdata/share/atlases/fmri_atlases.zip && unzip fmri_atlases.zip
