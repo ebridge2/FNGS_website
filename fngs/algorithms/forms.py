@@ -21,14 +21,14 @@ class SubmissionForm(forms.ModelForm):
 			'upload_data_or_not':_('Upload Local Data?')
 		}
 		help_texts={
-			'state':_('Level of analysis to perform'),
-			'bucket':_('Name of S3 bucket where data lives'),
-			'bidsdir':_('Path on S3 bucket where data lives'),
-			'jobdir':_('Unique identifier for job submission to facilitate later queries'),
-			'creds_file':_('File containing user credentials for AWS services'),
-			'datasetname':_('Dataset name (group analysis)'),
-			'modality':_('Modality of data'),
-			'slice_timing':_('The method in which slices were acquired.'),
-			'data_file':_('Local data to be uploaded to S3 bucket(stored in BIDS formatting and zipped).'),
-			'upload_data_or_not':_('Whether or not the local data should be uploaded to S3.')
+			'state':_('Level of analysis you want to perform'),
+			'bucket':_('Name of the S3 bucket where your data lives'),
+			'bidsdir':_("Path on the S3 bucket where data lives (root folder of BIDS spec'd data)"),
+			'jobdir':_('Your personalized unique identifier that you can use later for queries'),
+			'creds_file':_('CSV file containing your user credentials for AWS services'),
+			'datasetname':_('Name of your dataset (only for group analysis)'),
+			'modality':_('Modality of the data'),
+			'slice_timing':_('The method in which the data slices were acquired'),
+			'data_file':_('Local data that you want to uploade to the specified S3 bucket before running analysis (zipped at one level above BIDS root)'),
+			'upload_data_or_not':_("Whether or not the local data should be uploaded to S3 (select 'No' if you haven't selected a file above)")
 		}
