@@ -12,8 +12,8 @@ RUN apt-get install -y git libpng-dev libfreetype6-dev pkg-config zlib1g-dev g++
 
 RUN pip install numpy==1.12.1 networkx>=1.11 nibabel>=2.0 dipy>=0.1 scipy boto3 awscli matplotlib==1.5.3 plotly==1.12.1 nilearn>=0.2 sklearn>=0.0 pandas
 RUN pip install django==1.11.1
-RUN pip install --ignore-installed cython coveralls wget sklearn networkx multiprocessing
-RUN apt-get install python-dateutil  django-docs
+RUN pip install --ignore-installed cython coveralls wget sklearn networkx multiprocessing django-docs
+RUN apt-get install python-dateutil
 
 RUN git clone -b eric-dev-gkiar-fmri https://github.com/neurodata/ndmg.git /ndmg && cd /ndmg && python setup.py install
 
