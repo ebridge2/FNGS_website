@@ -33,11 +33,14 @@ def submit_job(request):
 		p.join()
 		messages = open(logfile, 'r').readlines()
 		os.system("rm " + logfile)
-		if submission.state == 'status':
+		if submission.state == 'kill':
+			counter = 0
 			new_messages = []
 			for i in range(len(messages)):
-				if (messages[i][0:7] == "... Can") or (messages[i][0:7] == "... Ter") or (messages[i][0:6] == "... No"):
+				if (messages[i][0:7] == "... Can") or (messages[i][0:7] == "... Ter"):
+					counter = counter + 1
 					new_messages.append(messages[i])
+			new_messages.append("Killed " + str(counter) + " jobs successfully!")
 			messages = new_messages
 		context = {
 			"messages": messages,
