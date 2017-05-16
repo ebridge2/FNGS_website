@@ -33,12 +33,14 @@ def submit_job(request):
 		p.join()
 		messages = open(logfile, 'r').readlines()
 		os.system("rm " + logfile)
-		new_messages = []
-		for i in range(len(messages)):
-			if (messages[i][0:7] == "... Can") or (messages[i][0:7] == "... Ter") or (messages[i][0:6] == "... No"):
-				new_messages.append(messages[i])
+		if submission.state == 'status':
+			new_messages = []
+			for i in range(len(messages)):
+				if (messages[i][0:7] == "... Can") or (messages[i][0:7] == "... Ter") or (messages[i][0:6] == "... No"):
+					new_messages.append(messages[i])
+			messages = new_messages
 		context = {
-			"messages": new_messages,
+			"messages": messages,
 			"form": form,
 		}
 		return render(request, 'explore/create_submission.html', context)
