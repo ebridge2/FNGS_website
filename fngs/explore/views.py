@@ -5,8 +5,6 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from .models import QuerySubmission
 from .forms import QuerySubmissionForm
-from ndmg.scripts.ndmg_func_pipeline import ndmg_func_pipeline as fngs_pipeline
-from ndmg.scripts.ndmg_dwi_pipeline import ndmg_dwi_pipeline as ndmg_pipeline
 from django.conf import settings
 import time
 import importlib

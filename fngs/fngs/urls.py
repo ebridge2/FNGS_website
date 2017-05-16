@@ -21,9 +21,9 @@ from django.conf.urls.static import static
 urlpatterns = [
 	url(r'^$', include('home.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^analyze/', include('analyze.urls')),
-    url(r'^explore/', include('explore.urls')),
-    url(r'^algorithms/', include('algorithms.urls')),
+    url(r'^submit/', include('analyze.urls')),
+    url(r'^query/', include('explore.urls')),
+    url(r'^demo/', include('algorithms.urls')),
     url(r'^docs/', include('docs.urls'))
 
 ]
