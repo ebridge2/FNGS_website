@@ -38,11 +38,7 @@ class Submission(models.Model):
 		("interleaved", 'Interleaved Acquisition')
 	)
 	slice_timing = models.CharField(max_length=40, blank=False, default="Interleaved acquisition")
-	UPLOAD_CHOICES = (
-		('yes', 'Yes'),
-		('no', 'No')
-	)
-	upload_data_or_not = models.CharField(max_length=20, blank=False, default="Yes")
+	upload_data_or_not = models.CharField(max_length=20, blank=False, default="No")
 
 	def add_output_url(self, url):
 		output_url = models.TextField(url)
