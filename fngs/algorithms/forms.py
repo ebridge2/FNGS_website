@@ -28,7 +28,7 @@ class SubmissionForm(forms.ModelForm):
 			'creds_file':_('CSV file containing your user credentials for AWS services'),
 			'datasetname':_('Name of your dataset (only for group analysis)'),
 			'modality':_('Modality of the data'),
-			'slice_timing':_('The method in which the data slices were acquired'),
-			'data_file':_('Local data that you want to uploade to the specified S3 bucket before running analysis (zipped at one level above BIDS root)'),
+			'slice_timing':_('The method in which the functional image was collected. Not necessary for diffusion.'),
+			'data_file':_('Local data that you want to upload to the specified S3 bucket before running analysis (zipped at one level above BIDS root)'),
 			'upload_data_or_not':_("Whether or not the local data should be uploaded to S3 (select 'No' if you haven't selected a file above)")
 		}

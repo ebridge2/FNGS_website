@@ -26,11 +26,12 @@ class Submission(models.Model):
 	creds_file = models.FileField(upload_to=get_creds_file_path, null=True, blank=False)
 	data_file = models.FileField(upload_to=get_data_file_path, null=True, blank=True)
 	datasetname = models.CharField(max_length=100, blank=True)
+
 	MOD_CHOICES = (
 		('func', 'Functional'),
 		("dwi", 'DWI')
 	)
-	modality = models.CharField(max_length=40, blank=False, default="Functional")
+	modality = models.CharField(max_length=20, choices=MOD_CHOICES, default=None, blank=False)
 	STC_CHOICES = (
 		('None', 'None'),
 		('up', 'Bottom Up Acquisition (standard)'),
