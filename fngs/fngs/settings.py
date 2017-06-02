@@ -32,9 +32,9 @@ ALLOWED_HOSTS = ['cortex.jhu.edu', '0.0.0.0', '128.220.11.5', 'localhost', '*']
 
 INSTALLED_APPS = [
     'home.apps.HomeConfig',
-    'analyze.apps.AnalyzeConfig',
-    'explore.apps.ExploreConfig',
-    'algorithms.apps.AlgorithmsConfig',
+    'submit.apps.SubmitConfig',
+    'query.apps.QueryConfig',
+    'demo.apps.DemoConfig',
     'docs.apps.DocsConfig',
     'django.contrib.admin',
     'django.contrib.auth',

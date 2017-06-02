@@ -16,16 +16,16 @@ import os
 import re
 
 def index(request):
-	return render(request, 'explore/index.html')
+	return render(request, 'query/index.html')
 
-def submit_job(request):
+def query_job(request):
 	form = QuerySubmissionForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		submission = form.save(commit=False)
 		submission.creds_file = request.FILES['creds_file']
 		submission.save()
 		logfile = submission.jobdir + "log.txt"
-		p = Process(target=submitstuff, args=(submission, logfile))
+		p = Process(target=submit_query, args=(submission, logfile))
 		p.daemon=True
 		p.start()
 		p.join()
@@ -44,16 +44,13 @@ def submit_job(request):
 			"messages": messages,
 			"form": form,
 		}
-		return render(request, 'explore/create_submission.html', context)
+		return render(request, 'query/new_query.html', context)
 	context = {
 		"form": form,
 	}
-	return render(request, 'explore/create_submission.html', context)
+	return render(request, 'query/new_query.html', context)
 
-def submitstuff(submission, logfile):
-	if submission.state == 'status':
-		cmd = "ndmg_cloud status --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url
-	if submission.state == 'kill':
-		cmd = "ndmg_cloud kill --jobdir " + submission.jobdir + " --credentials " + submission.creds_file.url
-	cmd = cmd + " > " + logfile
+def submit_query(query, logfile):
+	cmd = "ndmg_cloud {} --jobdir {} --credentials {}".format(query.state,
+		query.jobdir, query.creds_file.url)
 	os.system(cmd)
