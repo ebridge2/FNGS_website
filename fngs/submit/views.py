@@ -108,7 +108,7 @@ def demo_job(request):
     form = SubmissionForm(request.POST or None, request.FILES or None)
     fields = ['bucket', 'bidsdir', 'datasetname', 'upload_data_or_not']
     defaults = ['fngs-test', 'BNU1-demo', 'BNU1', 'yes']
-    disable = ['state', 'slice_timing']
+    disable = ['state', 'data_file', 'slice_timing']
     for (field, default) in zip(fields, defaults):
         form.initial[field] = default
     for field in fields + disable:
