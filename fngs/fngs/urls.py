@@ -23,7 +23,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^submit/', include('submit.urls')),
     url(r'^query/', include('query.urls')),
-    url(r'^demo/', include('demo.urls')),
     url(r'^docs/', include('docs.urls'))
 ]
 

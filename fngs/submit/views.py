@@ -21,6 +21,26 @@ from shutil import rmtree
 def index(request):
     return render(request, 'submit/index.html')
 
+def upload_submit(target_funcs, args, logfile):
+    for (target, arg) in zip(target_funcs, args):
+        proc = Process(target=target, args=arg)
+        proc.daemon = True
+        proc.start()
+        proc.join()
+    messages = open(logfile, 'r').readlines()
+    os.remove(logfile)
+    new_messages = []
+    counter = 0
+    for i in range(len(messages)):
+        if messages[i][0:18] == "... Submitting job":
+            counter += 1
+            new_messages.append(messages[i])
+            if i == (len(messages) - 1):
+                counter = 0
+                new_messages = []
+    new_messages.append("Submitted " + str(counter) + " jobs successfully!")
+    return new_messages
+
 def submit_job(request):
     form = SubmissionForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -32,23 +52,7 @@ def submit_job(request):
         logfile = submission.jobdir + "log.txt"
         target_funcs = [unzip_directory, upload_bids, cleanup, submit]
         args = [(submission,), (submission,), (submission,), (submission, logfile)]
-        for (target, arg) in zip(target_funcs, args):
-            proc = Process(target=target, args=arg)
-            proc.daemon = True
-            proc.start()
-            proc.join()
-        messages = open(logfile, 'r').readlines()
-        os.remove(logfile)
-        new_messages = []
-        counter = 0
-        for i in range(len(messages)):
-            if messages[i][0:18] == "... Submitting job":
-                counter += 1
-                new_messages.append(messages[i])
-                if i == (len(messages) - 1):
-                    counter = 0
-                    new_messages = []
-        new_messages.append("Submitted " + str(counter) + " jobs successfully!")
+        new_messages = upload_submit(target_funcs, args, logfile)
         context = {
             "messages": new_messages,
             "form": form,
@@ -98,4 +102,47 @@ def submit(submission, logfile):
                 submission.bidsdir, submission.jobdir, submission.creds_file.url, 
                 submission.modality, submission.slice_timing, logfile)
     print(cmd)
+    os.system(cmd)
+
+def demo_job(request):
+    form = SubmissionForm(request.POST or None, request.FILES or None)
+    fields = ['bucket', 'bidsdir', 'datasetname', 'upload_data_or_not']
+    defaults = ['fngs-test', 'BNU1-demo', 'BNU1', 'yes']
+    disable = ['state', 'slice_timing']
+    for (field, default) in zip(fields, defaults):
+        form.initial[field] = default
+    for field in fields + disable:
+        form.fields[field].disabled = True
+    if form.is_valid():
+        submission = form.save(commit=False)
+        submission.creds_file = request.FILES['creds_file']
+        submission.save()
+        logfile = submission.jobdir + "log.txt"
+        target_funcs = [unzip_directory, upload_demo, submit]
+        args = [(submission,), (submission,), (submission, logfile)]
+        new_messages = upload_submit(target_funcs, args, logfile)
+        context = {
+            "messages": new_messages,
+            "form": form,
+        }
+        return render(request, 'submit/create_submission.html', context)
+    context = {
+        "form": form,
+    }
+    return render(request, 'submit/create_submission.html', context)
+
+def upload_demo(submission):
+    credfile = open(submission.creds_file.url, 'rb')
+    reader = csv.reader(credfile)
+    rowcounter = 0
+    for row in reader:
+        if rowcounter == 1:
+            public_access_key = str(row[0])
+            secret_access_key = str(row[1])
+        rowcounter = rowcounter + 1
+    os.environ['AWS_ACCESS_KEY_ID'] = public_access_key
+    os.environ['AWS_SECRET_ACCESS_KEY'] = secret_access_key
+    os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
+    demo_dir = '/FNGS_server/demo_data/BNU1-demo'
+    cmd = "aws s3 sync " + demo_dir + " s3://" + submission.bucket + " --acl public-read"
     os.system(cmd)

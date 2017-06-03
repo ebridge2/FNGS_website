@@ -15,6 +15,6 @@ class QuerySubmissionForm(forms.ModelForm):
 		}
 		help_texts={
 			'state':_('Type of query you wish to perform on your jobs'),
-			'jobdir':_('The personalized unique identifier that you used to submit the jobs originally'),
+			'jobdir':_('The personalized unique identifier that you used to submit the jobs originally.'),
 			'creds_file':_('CSV file containing your user credentials for AWS services')
 		}

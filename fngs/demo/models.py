@@ -43,7 +43,8 @@ class Submission(models.Model):
 
 	def add_output_url(self, url):
 		output_url = models.TextField(url)
-			
+		pass
+
 	def __str__(self):
 		return str(self.bucket) + "/" + str(self.bidsdir)
 
