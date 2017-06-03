@@ -23,6 +23,8 @@ RUN git clone https://github.com/ebridge2/FNGS_website.git && mkdir /FNGS_server
 # setup the website
 RUN cd /FNGS_website/fngs && python manage.py makemigrations $APP && python manage.py migrate && python manage.py migrate --run-syncdb 
 
+RUN mkdir /FNGS_server/demo_data && cd /FNGS_server/demo_data wget http://openconnecto.me/mrdata/share/demo_data/ndmg_func_cloud_demo.zip && unzip ndmg_func_cloud_demo.zip
+
 # copy over the entrypoint script
 COPY ./startfngs.sh /
 ADD ./.vimrc .vimrc
