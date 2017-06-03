@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'submit.apps.SubmitConfig',
     'query.apps.QueryConfig',
-    'demo.apps.DemoConfig',
     'docs.apps.DocsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
