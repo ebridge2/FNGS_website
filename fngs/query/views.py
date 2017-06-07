@@ -44,11 +44,11 @@ def query_job(request):
 			"messages": messages,
 			"form": form,
 		}
+		os.remove(logfile)
 		return render(request, 'query/new_query.html', context)
 	context = {
 		"form": form,
 	}
-	os.remove(logfile)
 	return render(request, 'query/new_query.html', context)
 
 def submit_query(query, logfile):
