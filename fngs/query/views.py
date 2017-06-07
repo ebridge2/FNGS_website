@@ -24,7 +24,7 @@ def query_job(request):
 		submission = form.save(commit=False)
 		submission.creds_file = request.FILES['creds_file']
 		submission.save()
-		logfile = submission.jobdir + "log.txt"
+		logfile = submission.jobdir + "_log.txt"
 		p = Process(target=submit_query, args=(submission, logfile))
 		p.daemon=True
 		p.start()
@@ -48,9 +48,10 @@ def query_job(request):
 	context = {
 		"form": form,
 	}
+	os.remove(logfile)
 	return render(request, 'query/new_query.html', context)
 
 def submit_query(query, logfile):
-	cmd = "ndmg_cloud {} --jobdir {} --credentials {}".format(query.state,
-		query.jobdir, query.creds_file.url)
+	cmd = "ndmg_cloud {} --jobdir {} --credentials {} > {}".format(query.state,
+		query.jobdir, query.creds_file.url, logfile)
 	os.system(cmd)
