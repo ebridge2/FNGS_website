@@ -145,5 +145,5 @@ def upload_demo(submission):
     os.environ['AWS_SECRET_ACCESS_KEY'] = secret_access_key
     os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
     demo_dir = '/FNGS_server/demo_data/BNU1-demo'
-    cmd = "aws s3 sync " + demo_dir + " s3://" + submission.bucket + " --acl public-read"
+    cmd = "aws s3 sync " + demo_dir + " s3://" + submission.bucket + "/" + submission.bidsdir + " --acl public-read"
     os.system(cmd)
