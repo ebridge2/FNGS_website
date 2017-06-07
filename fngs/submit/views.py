@@ -15,6 +15,7 @@ from multiprocessing import Process
 import os
 import re
 import csv
+import itertools
 from collections import OrderedDict
 from shutil import rmtree
 
@@ -111,7 +112,7 @@ def demo_job(request):
     disable = ['state', 'data_file', 'slice_timing']
     for (field, default) in zip(fields, defaults):
         form.initial[field] = default
-    for field in fields + disable:
+    for field in itertools.chain(fields, disable):
         form.fields[field].disabled = True
     if form.is_valid():
         submission = form.save(commit=False)
