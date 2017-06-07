@@ -1,27 +1,11 @@
-FROM ericw95/fngs:0.0.8
+FROM neurodata/sic:paper
 MAINTAINER Eric Bridgeford
 
 USER root
+RUN pip install numpy==1.12.1 
+RUN pip install matplotlib==1.5.3
+RUN git clone -b eric-dev-gkiar-fmri https://github.com/neurodata/ndmg.git /ndmg && cd /ndmg && python setup.py install
 
-RUN pip install setuptools==33.1.1
-RUN apt-get -y install python2.7 python-pip python-dev
-RUN apt-get -y install ipython ipython-notebook git &&\
-		pip install --upgrade pip
-RUN pip install jupyter
-
-RUN useradd -m -s /bin/bash sic-user
-
-COPY jupyter_notebook_config.py /home/sic-user/.jupyter
 COPY sic_fngs.ipynb /home/sic-user
-WORKDIR /home/sic-user
-
-ENV TINI_VERSION v0.6.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
-RUN chmod +x /usr/bin/tini
-ENTRYPOINT ["/usr/bin/tini", "--"]
 
 USER sic-user
-
-EXPOSE 8888
-CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0"]
-
