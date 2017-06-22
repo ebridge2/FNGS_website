@@ -12,7 +12,7 @@ ENV LIBXP_URL http://mirrors.kernel.org/ubuntu/pool/main/libx/libxp/libxp6_1.0.2
 #--------Initial Configuration-----------------------------------------------#
 # download/install basic dependencies, and set up python
 RUN apt-get update
-RUN apt-get install -y zip unzip vim git python-dev curl
+RUN apt-get install -y zip unzip vim git python-dev curl gsl-bin
 
 RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN python get-pip.py
