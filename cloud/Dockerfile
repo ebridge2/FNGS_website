@@ -1,4 +1,4 @@
-FROM bids/base_fsl:5.0.9-3
+FROM neurodata/fsl_1604:0.0.1
 MAINTAINER Eric Bridgeford <ericwb95@gmail.com>
 
 #--------Environment Variables-----------------------------------------------#
@@ -45,7 +45,7 @@ RUN \
     pandas
 
 RUN \
-    git clone -b eric-dev-gkiar-fmri $NDMG_URL /ndmg && \
+    git clone -b eric-dev-bg-2 $NDMG_URL /ndmg && \
     cd /ndmg && \
     python setup.py install 
 
