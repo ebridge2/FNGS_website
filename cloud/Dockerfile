@@ -12,7 +12,7 @@ ENV LIBXP_URL http://mirrors.kernel.org/ubuntu/pool/main/libx/libxp/libxp6_1.0.2
 # download/install basic dependencies, and set up python
 RUN apt-get update
 RUN apt-get install -y zip unzip vim git python-dev curl libglu1
-RUN ln -s  /usr/lib/x86_64-linux-gnu/libgsl.so  /usr/lib/libgsl.so.0
+RUN echo "ln -s /usr/lib/x86_64-linux-gnu/libgsl.so /usr/lib/libgsl.so.0" >> ~/.bashrc
 
 RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN python get-pip.py
