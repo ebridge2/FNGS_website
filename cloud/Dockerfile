@@ -45,7 +45,7 @@ RUN \
     pandas
 
 RUN \
-    git clone -b eric-dev-bg-2 $NDMG_URL /ndmg && \
+    git clone -b eric-dev-fmri $NDMG_URL /ndmg && \
     cd /ndmg && \
     python setup.py install 
 
