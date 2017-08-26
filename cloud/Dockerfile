@@ -3,8 +3,7 @@ MAINTAINER Eric Bridgeford <ericwb95@gmail.com>
 
 #--------Environment Variables-----------------------------------------------#
 ENV NDMG_URL https://github.com/neurodata/ndmg.git
-ENV FMRI_ATLASES http://openconnecto.me/mrdata/share/eric_atlases/fmri_atlases.zip
-ENV DWI_ATLASES http://openconnecto.me/mrdata/share/eric_atlases/dwi_atlases.zip
+ENV ATLASES http://openconnecto.me/mrdata/share/eric_atlases/eric_atlases.zip
 ENV AFNI_URL https://afni.nimh.nih.gov/pub/dist/bin/linux_fedora_21_64/@update.afni.binaries
 ENV LIBXP_URL http://mirrors.kernel.org/ubuntu/pool/main/libx/libxp/libxp6_1.0.2-2_amd64.deb
 
@@ -12,7 +11,8 @@ ENV LIBXP_URL http://mirrors.kernel.org/ubuntu/pool/main/libx/libxp/libxp6_1.0.2
 #--------Initial Configuration-----------------------------------------------#
 # download/install basic dependencies, and set up python
 RUN apt-get update
-RUN apt-get install -y zip unzip vim git python-dev curl gsl-bin
+RUN apt-get install -y zip unzip vim git python-dev curl libglu1
+RUN ln -s  /usr/lib/x86_64-linux-gnu/libgsl.so  /usr/lib/libgsl.so.0
 
 RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN python get-pip.py
@@ -42,7 +42,7 @@ RUN \
 RUN \
     pip install numpy==1.12.1 networkx>=1.11 nibabel>=2.0 dipy>=0.1 scipy \
     boto3 awscli matplotlib==1.5.3 plotly==1.12.1 nilearn>=0.2 sklearn>=0.0 \
-    pandas
+    pandas cython
 
 RUN \
     git clone -b eric-dev-fmri $NDMG_URL /ndmg && \
@@ -52,12 +52,9 @@ RUN \
 RUN \
     mkdir /ndmg_atlases && \
     cd /ndmg_atlases && \
-    wget -rnH --cut-dirs=3 --no-parent -P /ndmg_atlases $FMRI_ATLASES && \
-    unzip fmri_atlases.zip
-RUN \
-    cd /ndmg_atlases && \
-    wget -rnH --cut-dirs=3 --no-parent -P /ndmg_atlases $DWI_ATLASES && \
-    unzip dwi_atlases.zip
+    wget -rnH --cut-dirs=3 --no-parent -P /ndmg_atlases $ATLASES && \
+    unzip eric_atlases.zip
+
 
 # copy over the entrypoint script
 COPY ./startfngs.sh /
