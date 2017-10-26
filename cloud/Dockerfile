@@ -1,4 +1,4 @@
-FROM bids/base_fsl:5.0.9-3
+FROM neurodata/fsl_1604:0.0.1
 MAINTAINER Eric Bridgeford <ericwb95@gmail.com>
 
 #--------Environment Variables-----------------------------------------------#
@@ -16,6 +16,8 @@ RUN apt-get install -y zip unzip vim git python-dev curl gsl-bin
 
 RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN python get-pip.py
+
+RUN apt-get update
 
 RUN \
     apt-get install -y git libpng-dev libfreetype6-dev pkg-config \
@@ -52,12 +54,8 @@ RUN \
 RUN \
     mkdir /ndmg_atlases && \
     cd /ndmg_atlases && \
-    wget -rnH --cut-dirs=3 --no-parent -P /ndmg_atlases $FMRI_ATLASES && \
-    unzip fmri_atlases.zip
-RUN \
-    cd /ndmg_atlases && \
-    wget -rnH --cut-dirs=3 --no-parent -P /ndmg_atlases $DWI_ATLASES && \
-    unzip dwi_atlases.zip
+    aws s3 cp --no-sign-request s3://mrneurodata/data/resources/ndmg_atlases.zip ./ && \
+    unzip ndmg_atlases.zip
 
 # copy over the entrypoint script
 COPY ./startfngs.sh /
