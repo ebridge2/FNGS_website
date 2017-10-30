@@ -47,7 +47,7 @@ RUN \
     pandas cython
 
 RUN \
-    d=d git clone -b m3r-release $NDMG_URL /ndmg && \
+    i=i git clone -b m3r-release $NDMG_URL /ndmg && \
     cd /ndmg && \
     python setup.py install 
 
