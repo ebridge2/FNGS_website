@@ -17,6 +17,8 @@ RUN echo "ln -s /usr/lib/x86_64-linux-gnu/libgsl.so /usr/lib/libgsl.so.0" >> ~/.
 RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN python get-pip.py
 
+RUN apt-get update
+
 RUN \
     apt-get install -y git libpng-dev libfreetype6-dev pkg-config \
     zlib1g-dev g++ vim r-base-core
