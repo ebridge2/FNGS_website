@@ -47,7 +47,7 @@ RUN \
     pandas cython
 
 RUN \
-    git clone -b m3r-release $NDMG_URL /ndmg && \
+    i=i git clone -b m3r-release $NDMG_URL /ndmg && \
     cd /ndmg && \
     python setup.py install 
 
@@ -56,8 +56,6 @@ RUN \
     cd /ndmg_atlases && \
     aws s3 cp --no-sign-request s3://mrneurodata/data/resources/ndmg_atlases.zip ./ && \
     unzip ndmg_atlases.zip
-    wget -rnH --cut-dirs=3 --no-parent -P /ndmg_atlases $ATLASES && \
-    unzip eric_atlases.zip
 
 
 # copy over the entrypoint script
