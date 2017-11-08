@@ -21,7 +21,7 @@ RUN apt-get update
 
 RUN \
     apt-get install -y git libpng-dev libfreetype6-dev pkg-config \
-    zlib1g-dev g++ vim r-base-core
+    zlib1g-dev g++ vim r-base-core libgsl-dev
 
 
 #---------AFNI INSTALL--------------------------------------------------------#
@@ -47,7 +47,7 @@ RUN \
     pandas cython
 
 RUN \
-    i=i git clone -b m3r-release $NDMG_URL /ndmg && \
+    l=l git clone -b m3r-release $NDMG_URL /ndmg && \
     cd /ndmg && \
     python setup.py install 
 
