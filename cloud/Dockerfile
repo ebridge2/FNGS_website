@@ -5,7 +5,7 @@ MAINTAINER Eric Bridgeford <ericwb95@gmail.com>
 ENV NDMG_URL https://github.com/neurodata/ndmg.git
 ENV ATLASES http://openconnecto.me/mrdata/share/eric_atlases/eric_atlases.zip
 ENV AFNI_URL https://afni.nimh.nih.gov/pub/dist/bin/linux_fedora_21_64/@update.afni.binaries
-ENV LIBXP_URL http://mirrors.kernel.org/ubuntu/pool/main/libx/libxp/libxp6_1.0.2-2_amd64.deb
+ENV LIBXP_URL http://mirrors.kernel.org/ubuntu/pool/main/libx/libxp/libxp6_1.0.2-1ubuntu1_amd64.deb
 
 
 #--------Initial Configuration-----------------------------------------------#
@@ -43,18 +43,18 @@ RUN \
 # setup of python dependencies for ndmg itself, as well as file dependencies
 RUN \
     pip install numpy==1.12.1 networkx>=1.11 nibabel>=2.0 dipy>=0.1 scipy \
-    boto3 awscli matplotlib==1.5.3 plotly==1.12.1 nilearn>=0.2 sklearn>=0.0 \
+    python-dateutil==2.6.1 boto3 awscli matplotlib==1.5.3 plotly==1.12.1 nilearn>=0.2 sklearn>=0.0 \
     pandas cython
 
 RUN \
-    git clone -b m3r-release $NDMG_URL /ndmg && \
+    d=d git clone -b m3r-release $NDMG_URL /ndmg && \
     cd /ndmg && \
     python setup.py install 
 
 RUN \
     mkdir /ndmg_atlases && \
     cd /ndmg_atlases && \
-    aws s3 cp --no-sign-request s3://mrneurodata/data/resources/ndmg_atlases.zip ./ && \
+    aws s3 cp --no-sign-request s3://mrneurodata/resources/ndmg_atlases.zip ./ && \
     unzip ndmg_atlases.zip
 
 
