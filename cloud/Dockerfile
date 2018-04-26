@@ -4,9 +4,9 @@ MAINTAINER Eric Bridgeford <ericwb95@gmail.com>
 #--------Environment Variables-----------------------------------------------#
 ENV NDMG_URL https://github.com/neurodata/ndmg.git
 ENV ATLASES http://openconnecto.me/mrdata/share/eric_atlases/eric_atlases.zip
-ENV AFNI_URL https://afni.nimh.nih.gov/pub/dist/bin/linux_fedora_21_64/@update.afni.binaries
-ENV LIBXP_URL http://mirrors.kernel.org/ubuntu/pool/main/libx/libxp/libxp6_1.0.2-1ubuntu1_amd64.deb
-
+ENV AFNI_URL https://files.osf.io/v1/resources/fvuh8/providers/osfstorage/5a0dd9a7b83f69027512a12b
+ENV LIBXP_URL http://mirrors.kernel.org/debian/pool/main/libx/libxp/libxp6_1.0.2-2_amd64.deb 
+ENV LIBPNG_URL http://mirrors.kernel.org/debian/pool/main/libp/libpng/libpng12-0_1.2.49-1%2Bdeb7u2_amd64.deb
 
 #--------Initial Configuration-----------------------------------------------#
 # download/install basic dependencies, and set up python
@@ -27,17 +27,29 @@ RUN \
 #---------AFNI INSTALL--------------------------------------------------------#
 # setup of AFNI, which provides robust modifications of many of neuroimaging
 # algorithms
-RUN \
-    wget -c $LIBXP_URL && \
-    dpkg -i `basename $LIBXP_URL` && \
-    apt-get install -f && \
-    curl -O $AFNI_URL && \
-    chsh -s /usr/bin/tcsh && \
-    tcsh @update.afni.binaries -package linux_openmp_64 -do_extras && \
-    chsh -s /bin/bash && \
-    cp /root/abin/AFNI.afnirc /root/.afnirc && \
-    echo "PATH=$PATH:/root/abin" >> ~/.bashrc
-
+RUN apt-get update -qq && apt-get install -yq --no-install-recommends ed gsl-bin libglu1-mesa-dev libglib2.0-0 libglw1-mesa \
+    libgomp1 libjpeg62 libxm4 netpbm tcsh xfonts-base xvfb && \
+    libs_path=/usr/lib/x86_64-linux-gnu && \
+    if [ -f $libs_path/libgsl.so.19 ]; then \
+           ln $libs_path/libgsl.so.19 $libs_path/libgsl.so.0; \
+    fi && \
+    echo "Install libxp (not in all ubuntu/debian repositories)" && \
+    apt-get install -yq --no-install-recommends libxp6 \
+    || /bin/bash -c " \
+       curl --retry 5 -o /tmp/libxp6.deb -sSL \
+       && dpkg -i /tmp/libxp6.deb && rm -f /tmp/libxp6.deb $LIBXP_URL" && \
+    echo "Install libpng12 (not in all ubuntu/debian repositories" && \
+    apt-get install -yq --no-install-recommends libpng12-0 \
+    || /bin/bash -c " \
+       curl -o /tmp/libpng12.deb -sSL $LIBPNG_URL \
+       && dpkg -i /tmp/libpng12.deb && rm -f /tmp/libpng12.deb" && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    mkdir -p /opt/afni && \
+    curl -o afni.tar.gz -sSLO "$AFNI_URL" && \
+    tar zxv -C /opt/afni --strip-components=1 -f afni.tar.gz && \
+    rm -rf afni.tar.gz
+ENV PATH=/opt/afni:$PATH
 
 #--------NDMG SETUP-----------------------------------------------------------#
 # setup of python dependencies for ndmg itself, as well as file dependencies
@@ -47,7 +59,7 @@ RUN \
     pandas cython
 
 RUN \
-    d=d git clone -b m3r-release $NDMG_URL /ndmg && \
+    git clone -b m3r-release $NDMG_URL /ndmg && \
     cd /ndmg && \
     python setup.py install 
 
