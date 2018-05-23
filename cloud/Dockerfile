@@ -10,19 +10,23 @@ ENV LIBPNG_URL http://mirrors.kernel.org/debian/pool/main/libp/libpng/libpng12-0
 
 #--------Initial Configuration-----------------------------------------------#
 # download/install basic dependencies, and set up python
-RUN apt-get update
-RUN apt-get install -y zip unzip vim git python-dev curl libglu1
-RUN echo "ln -s /usr/lib/x86_64-linux-gnu/libgsl.so /usr/lib/libgsl.so.0" >> ~/.bashrc
+RUN apt-get update && \
+    apt-get install -y zip unzip vim git curl libglu1 python-setuptools zlib1g-dev \
+    git libpng-dev libfreetype6-dev pkg-config g++ vim r-base-core libgsl0-dev build-essential \
+    openssl
 
-RUN wget https://bootstrap.pypa.io/get-pip.py
-RUN python get-pip.py
+# upgrade python to solve TLS issues
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    apt-get update && \
+    add-apt-repository ppa:jonathonf/python-2.7 && \
+    apt-get update && \
+    apt-get install -y python2.7 python2.7-dev
 
-RUN apt-get update
+RUN wget https://bootstrap.pypa.io/get-pip.py && \
+    python get-pip.py
 
-RUN \
-    apt-get install -y git libpng-dev libfreetype6-dev pkg-config \
-    zlib1g-dev g++ vim r-base-core libgsl-dev
-
+RUN pip install --upgrade pip
 
 #---------AFNI INSTALL--------------------------------------------------------#
 # setup of AFNI, which provides robust modifications of many of neuroimaging
@@ -32,8 +36,9 @@ RUN apt-get update -qq && apt-get install -yq --no-install-recommends ed gsl-bin
     libs_path=/usr/lib/x86_64-linux-gnu && \
     if [ -f $libs_path/libgsl.so.19 ]; then \
            ln $libs_path/libgsl.so.19 $libs_path/libgsl.so.0; \
-    fi && \
-    echo "Install libxp (not in all ubuntu/debian repositories)" && \
+    fi
+
+RUN echo "Install libxp (not in all ubuntu/debian repositories)" && \
     apt-get install -yq --no-install-recommends libxp6 \
     || /bin/bash -c " \
        curl --retry 5 -o /tmp/libxp6.deb -sSL \
@@ -44,8 +49,9 @@ RUN apt-get update -qq && apt-get install -yq --no-install-recommends ed gsl-bin
        curl -o /tmp/libpng12.deb -sSL $LIBPNG_URL \
        && dpkg -i /tmp/libpng12.deb && rm -f /tmp/libpng12.deb" && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    mkdir -p /opt/afni && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN mkdir -p /opt/afni && \
     curl -o afni.tar.gz -sSLO "$AFNI_URL" && \
     tar zxv -C /opt/afni --strip-components=1 -f afni.tar.gz && \
     rm -rf afni.tar.gz
@@ -54,12 +60,12 @@ ENV PATH=/opt/afni:$PATH
 #--------NDMG SETUP-----------------------------------------------------------#
 # setup of python dependencies for ndmg itself, as well as file dependencies
 RUN \
-    pip install numpy==1.12.1 networkx>=1.11 nibabel>=2.0 dipy>=0.1 scipy \
-    python-dateutil==2.6.1 boto3 awscli matplotlib==1.5.3 plotly==1.12.1 nilearn>=0.2 sklearn>=0.0 \
-    pandas cython
+    pip install numpy networkx>=1.11 nibabel>=2.0 dipy>=0.1 scipy \
+    python-dateutil==2.6.1 boto3 awscli matplotlib==1.5.3 plotly==1.12.9 nilearn>=0.2 sklearn>=0.0 \
+    pandas cython pyvtk awscli requests==2.5.3 scikit-image pybids
 
 RUN \
-    git clone -b m3r-release $NDMG_URL /ndmg && \
+    git clone -b merge-dmri-fmri $NDMG_URL /ndmg && \
     cd /ndmg && \
     python setup.py install 
 
@@ -69,10 +75,16 @@ RUN \
     aws s3 cp --no-sign-request s3://mrneurodata/resources/ndmg_atlases.zip ./ && \
     unzip ndmg_atlases.zip
 
+RUN mkdir /data && \
+    chmod -R 777 /data
+
+ENV MPLCONFIGDIR /tmp/matplotlib
+ENV PYTHONWARNINGS ignore
 
 # copy over the entrypoint script
-COPY ./startfngs.sh /
 ADD ./.vimrc .vimrc
+RUN ldconfig
+RUN chmod -R 777 /usr/local/bin/ndmg_bids
 
 # and add it as an entrypoint
 ENTRYPOINT ["ndmg_bids"]
