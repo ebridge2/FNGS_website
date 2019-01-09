@@ -90,7 +90,7 @@ ssh -L localhost:<host-port>:<remote-port> <username>@<server>
 Which in my case is:
 
 ```
-ssh -L localhost: <username>@<server>
+ssh -L localhost:<host-port>:remote:<remote-port> <username>@<server>
 ```
 
 Then, in your browser, navigate to:
