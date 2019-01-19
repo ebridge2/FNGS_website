@@ -65,7 +65,7 @@ RUN \
     pandas cython pyvtk awscli requests==2.5.3 scikit-image pybids
 
 RUN \
-    git clone -b merge-dmri-fmri $NDMG_URL /ndmg && \
+    git clone -b staging-dmri-fmri $NDMG_URL /ndmg && \
     cd /ndmg && \
     python setup.py install 
 
